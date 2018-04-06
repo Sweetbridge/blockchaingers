@@ -1,34 +1,45 @@
+// Copyright (c) 2017 Sweetbridge Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 pragma solidity ^0.4.19;
 
 import "./Owned.sol";
 
-
+// Certifiers repository
 contract Certifiers is Owned {
 
     struct Certifier {
-        string certificationtUrl;
+        string serviceUrl;
         string name;
-        string accreditationIpfsHash;
-        string accreditationUrl;
+        string accreditationUrl;  // any document type, either ipfs
         bool active;
     }
 
     mapping(address => Certifier) public certifiers;
 
     function addCertifier(address certAddress,
-        string certificationtUrl,
+        string serviceUrl,
         string name,
-        string accreditationIpfsHash,
-        string accreditationUrl) onlyOwner {
+        string accreditationUrl) public onlyOwner {
 
-        Certifier certifier;
-        certifier.certificationtUrl = certificationtUrl;
-        certifier.name = name;
-        certifier.accreditationIpfsHash = accreditationIpfsHash;
-        certifier.accreditationUrl = accreditationUrl;
-        certifiers[certAddress] = certifier;
+        certifiers[certAddress] = Certifier(serviceUrl,
+                                            name,
+                                            accreditationUrl,
+                                            false);
     }
 
-    function deactivteCertifier(address certAddress) onlyOwner;
+    function deactivteCertifier(address certAddress) public onlyOwner {
+    }
 
 }
