@@ -6,13 +6,26 @@
   "author": "sweetbridge.com",
   "license": "MIT",
   "dependencies": {
-    "solium": "^1.1.6"
+    "solium": "^1.1.6",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "web3": "^1.0.0-beta.33"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.1",
     "bignumber.js": "^4.1.0",
     "eslint-plugin-flowtype": "^2.39.1",
+    "ganache-cli": "^6.1.0",
+    "nodemon": "^1.17.3",
     "standard": "^10.0.3"
+  },
+  "scripts": {
+    "evm": "ganache-cli --port 8534",
+    "start:server": "node server",
+    "develop:server": "nodemon --exec 'npm run start:server' --watch server",
+    "test:server": "jest server",
+    "test:contracts": "truffle test"
   },
   "standard": {
     "env": [
