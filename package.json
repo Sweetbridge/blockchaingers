@@ -1,0 +1,31 @@
+{
+  "name": "sweetbridge-id",
+  "version": "1.0.0",
+  "description": "Sweetbridge ID system",
+  "repository": "sweetbridge.com",
+  "author": "sweetbridge.com",
+  "license": "MIT",
+  "dependencies": {
+    "solium": "^1.1.6"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.0.1",
+    "bignumber.js": "^4.1.0",
+    "eslint-plugin-flowtype": "^2.39.1",
+    "standard": "^10.0.3"
+  },
+  "standard": {
+    "env": [
+      "mocha"
+    ],
+    "globals": [
+      "assert",
+      "artifacts",
+      "contract"
+    ],
+    "parser": "babel-eslint",
+    "plugins": [
+      "flowtype"
+    ]
+  }
+}
