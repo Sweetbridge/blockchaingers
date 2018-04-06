@@ -10,7 +10,11 @@
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.3",
-    "web3": "^1.0.0-beta.33"
+    "web3": "^1.0.0-beta.33",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1",
+    "react-scripts": "1.1.4",
+    "web3-local-signing-provider": "^1.0.4"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.1",
@@ -21,11 +25,15 @@
     "standard": "^10.0.3"
   },
   "scripts": {
-    "evm": "ganache-cli --port 8534",
+    "evm": "ganache-cli --port 8534 --mnemonic=\"candy maple cake sugar pudding cream honey rich smooth crumble sweet treat\" --accounts=20",
     "start:server": "node server",
     "develop:server": "nodemon --exec 'npm run start:server' --watch server",
     "test:server": "jest server",
-    "test:contracts": "truffle test"
+    "test:contracts": "truffle test",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test:client": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   },
   "standard": {
     "env": [
