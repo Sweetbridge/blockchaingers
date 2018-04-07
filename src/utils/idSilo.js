@@ -13,8 +13,12 @@ export const getSilo = async (siloAddress) => {
   if(!idSilo){
     siloAddress = siloAddress || storage.getItem('siloAddress')
     let eth = web3().eth
+    let code = '0x0'
     idSilo = new eth.Contract(IdSilo.abi, siloAddress, {from: userAddress})
-    if (!siloAddress) {
+
+    if(siloAddress) code = await eth.getCode(siloAddress)
+
+    if (code == '0x0') {
       let receipt = await idSilo.deploy({data: IdSilo.bytecode}).send()
       idSilo.options.address = receipt.contractAddress
       storage.setItem('siloAddress', idSilo.options.address)

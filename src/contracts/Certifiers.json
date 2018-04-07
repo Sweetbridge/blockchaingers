@@ -1,0 +1,2465 @@
+{
+  "contractName": "Certifiers",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "owner_",
+          "type": "address"
+        }
+      ],
+      "name": "setOwner",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "certifiers",
+      "outputs": [
+        {
+          "name": "serviceUrl",
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "accreditationUrl",
+          "type": "string"
+        },
+        {
+          "name": "state",
+          "type": "uint8"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "certAddresses",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "LogSetOwner",
+      "type": "event"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "certAddress",
+          "type": "address"
+        },
+        {
+          "name": "serviceUrl",
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "accreditationUrl",
+          "type": "string"
+        }
+      ],
+      "name": "addCertifier",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "certAddress",
+          "type": "address"
+        }
+      ],
+      "name": "deactivateCertifier",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x6060604052336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550610ab6806100536000396000f300606060405260043610610078576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806313af40351461007d5780635d42b2b9146100b65780638ab8ec42146102ac5780638da5cb5b146103ae578063ee8b0b8b14610403578063fd723ea114610466575b600080fd5b341561008857600080fd5b6100b4600480803573ffffffffffffffffffffffffffffffffffffffff1690602001909190505061049f565b005b34156100c157600080fd5b6100ed600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919050506105c1565b6040518080602001806020018060200185600281111561010957fe5b60ff1681526020018481038452888181546001816001161561010002031660029004815260200191508054600181600116156101000203166002900480156101925780601f1061016757610100808354040283529160200191610192565b820191906000526020600020905b81548152906001019060200180831161017557829003601f168201915b50508481038352878181546001816001161561010002031660029004815260200191508054600181600116156101000203166002900480156102155780601f106101ea57610100808354040283529160200191610215565b820191906000526020600020905b8154815290600101906020018083116101f857829003601f168201915b50508481038252868181546001816001161561010002031660029004815260200191508054600181600116156101000203166002900480156102985780601f1061026d57610100808354040283529160200191610298565b820191906000526020600020905b81548152906001019060200180831161027b57829003601f168201915b505097505050505050505060405180910390f35b34156102b757600080fd5b6103ac600480803573ffffffffffffffffffffffffffffffffffffffff1690602001909190803590602001908201803590602001908080601f0160208091040260200160405190810160405280939291908181526020018383808284378201915050505050509190803590602001908201803590602001908080601f0160208091040260200160405190810160405280939291908181526020018383808284378201915050505050509190803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919050506105fb565b005b34156103b957600080fd5b6103c161081e565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561040e57600080fd5b6104246004808035906020019091905050610843565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561047157600080fd5b61049d600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610882565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156104fa57600080fd5b806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055507fce241d7ca1f669fee44b6fc00b8eba2df3bb514eed0f6f668f8f89096e81ed946000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff16604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390a150565b60016020528060005260406000206000915090508060000190806001019080600201908060030160009054906101000a900460ff16905084565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561065657600080fd5b6000600281111561066357fe5b600160008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060030160009054906101000a900460ff1660028111156106be57fe5b141561081857608060405190810160405280848152602001838152602001828152602001600160028111156106ef57fe5b815250600160008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082015181600001908051906020019061074d9291906109b9565b50602082015181600101908051906020019061076a9291906109b9565b5060408201518160020190805190602001906107879291906109b9565b5060608201518160030160006101000a81548160ff021916908360028111156107ac57fe5b0217905550905050600280548060010182816107c89190610a39565b9160005260206000209001600086909190916101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550505b50505050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60028181548110151561085257fe5b90600052602060002090016000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156108dd57600080fd5b600060028111156108ea57fe5b600160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060030160009054906101000a900460ff16600281111561094557fe5b1415151561095257600080fd5b6002600160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060030160006101000a81548160ff021916908360028111156109b157fe5b021790555050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106109fa57805160ff1916838001178555610a28565b82800160010185558215610a28579182015b82811115610a27578251825591602001919060010190610a0c565b5b509050610a359190610a65565b5090565b815481835581811511610a6057818360005260206000209182019101610a5f9190610a65565b5b505050565b610a8791905b80821115610a83576000816000905550600101610a6b565b5090565b905600a165627a7a72305820c2ba3203b376be3afec001c61a6916fd17e115cc9d295dbd0fcb9c62230b0e820029",
+  "deployedBytecode": "0x606060405260043610610078576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806313af40351461007d5780635d42b2b9146100b65780638ab8ec42146102ac5780638da5cb5b146103ae578063ee8b0b8b14610403578063fd723ea114610466575b600080fd5b341561008857600080fd5b6100b4600480803573ffffffffffffffffffffffffffffffffffffffff1690602001909190505061049f565b005b34156100c157600080fd5b6100ed600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919050506105c1565b6040518080602001806020018060200185600281111561010957fe5b60ff1681526020018481038452888181546001816001161561010002031660029004815260200191508054600181600116156101000203166002900480156101925780601f1061016757610100808354040283529160200191610192565b820191906000526020600020905b81548152906001019060200180831161017557829003601f168201915b50508481038352878181546001816001161561010002031660029004815260200191508054600181600116156101000203166002900480156102155780601f106101ea57610100808354040283529160200191610215565b820191906000526020600020905b8154815290600101906020018083116101f857829003601f168201915b50508481038252868181546001816001161561010002031660029004815260200191508054600181600116156101000203166002900480156102985780601f1061026d57610100808354040283529160200191610298565b820191906000526020600020905b81548152906001019060200180831161027b57829003601f168201915b505097505050505050505060405180910390f35b34156102b757600080fd5b6103ac600480803573ffffffffffffffffffffffffffffffffffffffff1690602001909190803590602001908201803590602001908080601f0160208091040260200160405190810160405280939291908181526020018383808284378201915050505050509190803590602001908201803590602001908080601f0160208091040260200160405190810160405280939291908181526020018383808284378201915050505050509190803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919050506105fb565b005b34156103b957600080fd5b6103c161081e565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561040e57600080fd5b6104246004808035906020019091905050610843565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561047157600080fd5b61049d600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610882565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156104fa57600080fd5b806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055507fce241d7ca1f669fee44b6fc00b8eba2df3bb514eed0f6f668f8f89096e81ed946000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff16604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390a150565b60016020528060005260406000206000915090508060000190806001019080600201908060030160009054906101000a900460ff16905084565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561065657600080fd5b6000600281111561066357fe5b600160008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060030160009054906101000a900460ff1660028111156106be57fe5b141561081857608060405190810160405280848152602001838152602001828152602001600160028111156106ef57fe5b815250600160008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082015181600001908051906020019061074d9291906109b9565b50602082015181600101908051906020019061076a9291906109b9565b5060408201518160020190805190602001906107879291906109b9565b5060608201518160030160006101000a81548160ff021916908360028111156107ac57fe5b0217905550905050600280548060010182816107c89190610a39565b9160005260206000209001600086909190916101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550505b50505050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60028181548110151561085257fe5b90600052602060002090016000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156108dd57600080fd5b600060028111156108ea57fe5b600160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060030160009054906101000a900460ff16600281111561094557fe5b1415151561095257600080fd5b6002600160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060030160006101000a81548160ff021916908360028111156109b157fe5b021790555050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106109fa57805160ff1916838001178555610a28565b82800160010185558215610a28579182015b82811115610a27578251825591602001919060010190610a0c565b5b509050610a359190610a65565b5090565b815481835581811511610a6057818360005260206000209182019101610a5f9190610a65565b5b505050565b610a8791905b80821115610a83576000816000905550600101610a6b565b5090565b905600a165627a7a72305820c2ba3203b376be3afec001c61a6916fd17e115cc9d295dbd0fcb9c62230b0e820029",
+  "sourceMap": "672:977:0:-;;;799:10:2;791:5;;:18;;;;;;;;;;;;;;;;;;672:977:0;;;;;;",
+  "deployedSourceMap": "672:977:0:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;905:110:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;917:47:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1007:439;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;730:20:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;970:30:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1452:195;;;;;;;;;;;;;;;;;;;;;;;;;;;;905:110:2;875:5;;;;;;;;;;;861:19;;:10;:19;;;853:28;;;;;;;;974:6;966:5;;:14;;;;;;;;;;;;;;;;;;990:18;1002:5;;;;;;;;;;;990:18;;;;;;;;;;;;;;;;;;;;;;905:110;:::o;917:47:0:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;1007:439::-;875:5:2;;;;;;;;;;;861:19;;:10;:19;;;853:28;;;;;;;;1205:13:0;1172:46;;;;;;;;:10;:23;1183:11;1172:23;;;;;;;;;;;;;;;:29;;;;;;;;;;;;:46;;;;;;;;;1168:272;;;1260:124;;;;;;;;;1287:10;1260:124;;;;1315:4;1260:124;;;;1337:16;1260:124;;;;1371:12;1260:124;;;;;;;;;;;1234:10;:23;1245:11;1234:23;;;;;;;;;;;;;;;:150;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1398:13;:31;;;;;;;;;;;:::i;:::-;;;;;;;;;;1417:11;1398:31;;;;;;;;;;;;;;;;;;;;;;;1168:272;1007:439;;;;:::o;730:20:2:-;;;;;;;;;;;;;:::o;970:30:0:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;1452:195::-;875:5:2;;;;;;;;;;;861:19;;:10;:19;;;853:28;;;;;;;;1570:13:0;1537:46;;;;;;;;:10;:23;1548:11;1537:23;;;;;;;;;;;;;;;:29;;;;;;;;;;;;:46;;;;;;;;;;1529:55;;;;;;;;1626:14;1594:10;:23;1605:11;1594:23;;;;;;;;;;;;;;;:29;;;:46;;;;;;;;;;;;;;;;;;;;;;;;1452:195;:::o;672:977::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o",
+  "source": "// Copyright (c) 2017 Sweetbridge Inc.\n//\n// Licensed under the Apache License, Version 2.0 (the \"License\");\n// you may not use this file except in compliance with the License.\n// You may obtain a copy of the License at\n//\n//     http://www.apache.org/licenses/LICENSE-2.0\n//\n// Unless required by applicable law or agreed to in writing, software\n// distributed under the License is distributed on an \"AS IS\" BASIS,\n// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n// See the License for the specific language governing permissions and\n// limitations under the License.\n\npragma solidity 0.4.19;\n\nimport \"./Owned.sol\";\n\n\n// Certifiers repository\ncontract Certifiers is Owned {\n    enum State{initial, active, inactive}\n\n    struct Certifier {\n        string serviceUrl;\n        string name;\n        string accreditationUrl;  // any document type, either ipfs\n        State state;\n    }\n\n    mapping(address => Certifier) public certifiers;\n    address[] public certAddresses;\n\n    function addCertifier(\n        address certAddress,\n        string serviceUrl,\n        string name,\n        string accreditationUrl) public onlyOwner {\n\n        if (certifiers[certAddress].state == State.initial) {\n            certifiers[certAddress] = Certifier(\n                serviceUrl,\n                name,\n                accreditationUrl,\n                State.active);\n            certAddresses.push(certAddress);\n        }\n    }\n\n    function deactivateCertifier(address certAddress) public onlyOwner {\n        require(certifiers[certAddress].state != State.initial);\n        certifiers[certAddress].state = State.inactive;\n    }\n}\n",
+  "sourcePath": "/Users/mroon/Documents/projects/blockchaingers/contracts/Certifiers.sol",
+  "ast": {
+    "absolutePath": "/Users/mroon/Documents/projects/blockchaingers/contracts/Certifiers.sol",
+    "exportedSymbols": {
+      "Certifiers": [
+        92
+      ]
+    },
+    "id": 93,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1,
+        "literals": [
+          "solidity",
+          "0.4",
+          ".19"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "598:23:0"
+      },
+      {
+        "absolutePath": "/Users/mroon/Documents/projects/blockchaingers/contracts/Owned.sol",
+        "file": "./Owned.sol",
+        "id": 2,
+        "nodeType": "ImportDirective",
+        "scope": 93,
+        "sourceUnit": 349,
+        "src": "623:21:0",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": [],
+            "baseName": {
+              "contractScope": null,
+              "id": 3,
+              "name": "Owned",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 348,
+              "src": "695:5:0",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Owned_$348",
+                "typeString": "contract Owned"
+              }
+            },
+            "id": 4,
+            "nodeType": "InheritanceSpecifier",
+            "src": "695:5:0"
+          }
+        ],
+        "contractDependencies": [
+          307,
+          348
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 92,
+        "linearizedBaseContracts": [
+          92,
+          348,
+          307
+        ],
+        "name": "Certifiers",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "Certifiers.State",
+            "id": 8,
+            "members": [
+              {
+                "id": 5,
+                "name": "initial",
+                "nodeType": "EnumValue",
+                "src": "718:7:0"
+              },
+              {
+                "id": 6,
+                "name": "active",
+                "nodeType": "EnumValue",
+                "src": "727:6:0"
+              },
+              {
+                "id": 7,
+                "name": "inactive",
+                "nodeType": "EnumValue",
+                "src": "735:8:0"
+              }
+            ],
+            "name": "State",
+            "nodeType": "EnumDefinition",
+            "src": "707:37:0"
+          },
+          {
+            "canonicalName": "Certifiers.Certifier",
+            "id": 17,
+            "members": [
+              {
+                "constant": false,
+                "id": 10,
+                "name": "serviceUrl",
+                "nodeType": "VariableDeclaration",
+                "scope": 17,
+                "src": "777:17:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string storage pointer"
+                },
+                "typeName": {
+                  "id": 9,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "777:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string storage pointer"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 12,
+                "name": "name",
+                "nodeType": "VariableDeclaration",
+                "scope": 17,
+                "src": "804:11:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string storage pointer"
+                },
+                "typeName": {
+                  "id": 11,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "804:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string storage pointer"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 14,
+                "name": "accreditationUrl",
+                "nodeType": "VariableDeclaration",
+                "scope": 17,
+                "src": "825:23:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string storage pointer"
+                },
+                "typeName": {
+                  "id": 13,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "825:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string storage pointer"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 16,
+                "name": "state",
+                "nodeType": "VariableDeclaration",
+                "scope": 17,
+                "src": "893:11:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_enum$_State_$8",
+                  "typeString": "enum Certifiers.State"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 15,
+                  "name": "State",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 8,
+                  "src": "893:5:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_enum$_State_$8",
+                    "typeString": "enum Certifiers.State"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "Certifier",
+            "nodeType": "StructDefinition",
+            "scope": 92,
+            "src": "750:161:0",
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 21,
+            "name": "certifiers",
+            "nodeType": "VariableDeclaration",
+            "scope": 92,
+            "src": "917:47:0",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Certifier_$17_storage_$",
+              "typeString": "mapping(address => struct Certifiers.Certifier storage ref)"
+            },
+            "typeName": {
+              "id": 20,
+              "keyType": {
+                "id": 18,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "925:7:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "917:29:0",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Certifier_$17_storage_$",
+                "typeString": "mapping(address => struct Certifiers.Certifier storage ref)"
+              },
+              "valueType": {
+                "contractScope": null,
+                "id": 19,
+                "name": "Certifier",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 17,
+                "src": "936:9:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_Certifier_$17_storage_ptr",
+                  "typeString": "struct Certifiers.Certifier storage pointer"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 24,
+            "name": "certAddresses",
+            "nodeType": "VariableDeclaration",
+            "scope": 92,
+            "src": "970:30:0",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_array$_t_address_$dyn_storage",
+              "typeString": "address[] storage ref"
+            },
+            "typeName": {
+              "baseType": {
+                "id": 22,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "970:7:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "id": 23,
+              "length": null,
+              "nodeType": "ArrayTypeName",
+              "src": "970:9:0",
+              "typeDescriptions": {
+                "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
+                "typeString": "address[] storage pointer"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 64,
+              "nodeType": "Block",
+              "src": "1157:289:0",
+              "statements": [
+                {
+                  "condition": {
+                    "argumentTypes": null,
+                    "commonType": {
+                      "typeIdentifier": "t_enum$_State_$8",
+                      "typeString": "enum Certifiers.State"
+                    },
+                    "id": 43,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "baseExpression": {
+                          "argumentTypes": null,
+                          "id": 37,
+                          "name": "certifiers",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 21,
+                          "src": "1172:10:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Certifier_$17_storage_$",
+                            "typeString": "mapping(address => struct Certifiers.Certifier storage ref)"
+                          }
+                        },
+                        "id": 39,
+                        "indexExpression": {
+                          "argumentTypes": null,
+                          "id": 38,
+                          "name": "certAddress",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 26,
+                          "src": "1183:11:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "IndexAccess",
+                        "src": "1172:23:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Certifier_$17_storage",
+                          "typeString": "struct Certifiers.Certifier storage ref"
+                        }
+                      },
+                      "id": 40,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "state",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 16,
+                      "src": "1172:29:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_enum$_State_$8",
+                        "typeString": "enum Certifiers.State"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "==",
+                    "rightExpression": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 41,
+                        "name": "State",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 8,
+                        "src": "1205:5:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_enum$_State_$8_$",
+                          "typeString": "type(enum Certifiers.State)"
+                        }
+                      },
+                      "id": 42,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "lValueRequested": false,
+                      "memberName": "initial",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "1205:13:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_enum$_State_$8",
+                        "typeString": "enum Certifiers.State"
+                      }
+                    },
+                    "src": "1172:46:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "falseBody": null,
+                  "id": 63,
+                  "nodeType": "IfStatement",
+                  "src": "1168:272:0",
+                  "trueBody": {
+                    "id": 62,
+                    "nodeType": "Block",
+                    "src": "1220:220:0",
+                    "statements": [
+                      {
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 54,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "leftHandSide": {
+                            "argumentTypes": null,
+                            "baseExpression": {
+                              "argumentTypes": null,
+                              "id": 44,
+                              "name": "certifiers",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 21,
+                              "src": "1234:10:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Certifier_$17_storage_$",
+                                "typeString": "mapping(address => struct Certifiers.Certifier storage ref)"
+                              }
+                            },
+                            "id": 46,
+                            "indexExpression": {
+                              "argumentTypes": null,
+                              "id": 45,
+                              "name": "certAddress",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 26,
+                              "src": "1245:11:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_address",
+                                "typeString": "address"
+                              }
+                            },
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": true,
+                            "nodeType": "IndexAccess",
+                            "src": "1234:23:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Certifier_$17_storage",
+                              "typeString": "struct Certifiers.Certifier storage ref"
+                            }
+                          },
+                          "nodeType": "Assignment",
+                          "operator": "=",
+                          "rightHandSide": {
+                            "argumentTypes": null,
+                            "arguments": [
+                              {
+                                "argumentTypes": null,
+                                "id": 48,
+                                "name": "serviceUrl",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 28,
+                                "src": "1287:10:0",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_string_memory_ptr",
+                                  "typeString": "string memory"
+                                }
+                              },
+                              {
+                                "argumentTypes": null,
+                                "id": 49,
+                                "name": "name",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 30,
+                                "src": "1315:4:0",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_string_memory_ptr",
+                                  "typeString": "string memory"
+                                }
+                              },
+                              {
+                                "argumentTypes": null,
+                                "id": 50,
+                                "name": "accreditationUrl",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 32,
+                                "src": "1337:16:0",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_string_memory_ptr",
+                                  "typeString": "string memory"
+                                }
+                              },
+                              {
+                                "argumentTypes": null,
+                                "expression": {
+                                  "argumentTypes": null,
+                                  "id": 51,
+                                  "name": "State",
+                                  "nodeType": "Identifier",
+                                  "overloadedDeclarations": [],
+                                  "referencedDeclaration": 8,
+                                  "src": "1371:5:0",
+                                  "typeDescriptions": {
+                                    "typeIdentifier": "t_type$_t_enum$_State_$8_$",
+                                    "typeString": "type(enum Certifiers.State)"
+                                  }
+                                },
+                                "id": 52,
+                                "isConstant": false,
+                                "isLValue": false,
+                                "isPure": true,
+                                "lValueRequested": false,
+                                "memberName": "active",
+                                "nodeType": "MemberAccess",
+                                "referencedDeclaration": null,
+                                "src": "1371:12:0",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_enum$_State_$8",
+                                  "typeString": "enum Certifiers.State"
+                                }
+                              }
+                            ],
+                            "expression": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_string_memory_ptr",
+                                  "typeString": "string memory"
+                                },
+                                {
+                                  "typeIdentifier": "t_string_memory_ptr",
+                                  "typeString": "string memory"
+                                },
+                                {
+                                  "typeIdentifier": "t_string_memory_ptr",
+                                  "typeString": "string memory"
+                                },
+                                {
+                                  "typeIdentifier": "t_enum$_State_$8",
+                                  "typeString": "enum Certifiers.State"
+                                }
+                              ],
+                              "id": 47,
+                              "name": "Certifier",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 17,
+                              "src": "1260:9:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_type$_t_struct$_Certifier_$17_storage_ptr_$",
+                                "typeString": "type(struct Certifiers.Certifier storage pointer)"
+                              }
+                            },
+                            "id": 53,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "kind": "structConstructorCall",
+                            "lValueRequested": false,
+                            "names": [],
+                            "nodeType": "FunctionCall",
+                            "src": "1260:124:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Certifier_$17_memory",
+                              "typeString": "struct Certifiers.Certifier memory"
+                            }
+                          },
+                          "src": "1234:150:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Certifier_$17_storage",
+                            "typeString": "struct Certifiers.Certifier storage ref"
+                          }
+                        },
+                        "id": 55,
+                        "nodeType": "ExpressionStatement",
+                        "src": "1234:150:0"
+                      },
+                      {
+                        "expression": {
+                          "argumentTypes": null,
+                          "arguments": [
+                            {
+                              "argumentTypes": null,
+                              "id": 59,
+                              "name": "certAddress",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 26,
+                              "src": "1417:11:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_address",
+                                "typeString": "address"
+                              }
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_address",
+                                "typeString": "address"
+                              }
+                            ],
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 56,
+                              "name": "certAddresses",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 24,
+                              "src": "1398:13:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_array$_t_address_$dyn_storage",
+                                "typeString": "address[] storage ref"
+                              }
+                            },
+                            "id": 58,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "push",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": null,
+                            "src": "1398:18:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_arraypush_nonpayable$_t_address_$returns$_t_uint256_$",
+                              "typeString": "function (address) returns (uint256)"
+                            }
+                          },
+                          "id": 60,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "1398:31:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "id": 61,
+                        "nodeType": "ExpressionStatement",
+                        "src": "1398:31:0"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "id": 65,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [
+              {
+                "arguments": [],
+                "id": 35,
+                "modifierName": {
+                  "argumentTypes": null,
+                  "id": 34,
+                  "name": "onlyOwner",
+                  "nodeType": "Identifier",
+                  "overloadedDeclarations": [],
+                  "referencedDeclaration": 331,
+                  "src": "1147:9:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_modifier$__$",
+                    "typeString": "modifier ()"
+                  }
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "1147:9:0"
+              }
+            ],
+            "name": "addCertifier",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 33,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 26,
+                  "name": "certAddress",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 65,
+                  "src": "1038:19:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 25,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1038:7:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 28,
+                  "name": "serviceUrl",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 65,
+                  "src": "1067:17:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string memory"
+                  },
+                  "typeName": {
+                    "id": 27,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1067:6:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string storage pointer"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 30,
+                  "name": "name",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 65,
+                  "src": "1094:11:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string memory"
+                  },
+                  "typeName": {
+                    "id": 29,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1094:6:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string storage pointer"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 32,
+                  "name": "accreditationUrl",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 65,
+                  "src": "1115:23:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string memory"
+                  },
+                  "typeName": {
+                    "id": 31,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1115:6:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string storage pointer"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1028:111:0"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 36,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1157:0:0"
+            },
+            "scope": 92,
+            "src": "1007:439:0",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 90,
+              "nodeType": "Block",
+              "src": "1519:128:0",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "commonType": {
+                          "typeIdentifier": "t_enum$_State_$8",
+                          "typeString": "enum Certifiers.State"
+                        },
+                        "id": 79,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "argumentTypes": null,
+                          "expression": {
+                            "argumentTypes": null,
+                            "baseExpression": {
+                              "argumentTypes": null,
+                              "id": 73,
+                              "name": "certifiers",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 21,
+                              "src": "1537:10:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Certifier_$17_storage_$",
+                                "typeString": "mapping(address => struct Certifiers.Certifier storage ref)"
+                              }
+                            },
+                            "id": 75,
+                            "indexExpression": {
+                              "argumentTypes": null,
+                              "id": 74,
+                              "name": "certAddress",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 67,
+                              "src": "1548:11:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_address",
+                                "typeString": "address"
+                              }
+                            },
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "nodeType": "IndexAccess",
+                            "src": "1537:23:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Certifier_$17_storage",
+                              "typeString": "struct Certifiers.Certifier storage ref"
+                            }
+                          },
+                          "id": 76,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "state",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 16,
+                          "src": "1537:29:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_enum$_State_$8",
+                            "typeString": "enum Certifiers.State"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "!=",
+                        "rightExpression": {
+                          "argumentTypes": null,
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 77,
+                            "name": "State",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 8,
+                            "src": "1570:5:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_type$_t_enum$_State_$8_$",
+                              "typeString": "type(enum Certifiers.State)"
+                            }
+                          },
+                          "id": 78,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "lValueRequested": false,
+                          "memberName": "initial",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": null,
+                          "src": "1570:13:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_enum$_State_$8",
+                            "typeString": "enum Certifiers.State"
+                          }
+                        },
+                        "src": "1537:46:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      ],
+                      "id": 72,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 363,
+                      "src": "1529:7:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
+                        "typeString": "function (bool) pure"
+                      }
+                    },
+                    "id": 80,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1529:55:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 81,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1529:55:0"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 88,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "baseExpression": {
+                          "argumentTypes": null,
+                          "id": 82,
+                          "name": "certifiers",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 21,
+                          "src": "1594:10:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Certifier_$17_storage_$",
+                            "typeString": "mapping(address => struct Certifiers.Certifier storage ref)"
+                          }
+                        },
+                        "id": 84,
+                        "indexExpression": {
+                          "argumentTypes": null,
+                          "id": 83,
+                          "name": "certAddress",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 67,
+                          "src": "1605:11:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "IndexAccess",
+                        "src": "1594:23:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Certifier_$17_storage",
+                          "typeString": "struct Certifiers.Certifier storage ref"
+                        }
+                      },
+                      "id": 85,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "state",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 16,
+                      "src": "1594:29:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_enum$_State_$8",
+                        "typeString": "enum Certifiers.State"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 86,
+                        "name": "State",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 8,
+                        "src": "1626:5:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_enum$_State_$8_$",
+                          "typeString": "type(enum Certifiers.State)"
+                        }
+                      },
+                      "id": 87,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "lValueRequested": false,
+                      "memberName": "inactive",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "1626:14:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_enum$_State_$8",
+                        "typeString": "enum Certifiers.State"
+                      }
+                    },
+                    "src": "1594:46:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_enum$_State_$8",
+                      "typeString": "enum Certifiers.State"
+                    }
+                  },
+                  "id": 89,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1594:46:0"
+                }
+              ]
+            },
+            "id": 91,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [
+              {
+                "arguments": [],
+                "id": 70,
+                "modifierName": {
+                  "argumentTypes": null,
+                  "id": 69,
+                  "name": "onlyOwner",
+                  "nodeType": "Identifier",
+                  "overloadedDeclarations": [],
+                  "referencedDeclaration": 331,
+                  "src": "1509:9:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_modifier$__$",
+                    "typeString": "modifier ()"
+                  }
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "1509:9:0"
+              }
+            ],
+            "name": "deactivateCertifier",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 68,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 67,
+                  "name": "certAddress",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 91,
+                  "src": "1481:19:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 66,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1481:7:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1480:21:0"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 71,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1519:0:0"
+            },
+            "scope": 92,
+            "src": "1452:195:0",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 93,
+        "src": "672:977:0"
+      }
+    ],
+    "src": "598:1052:0"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/mroon/Documents/projects/blockchaingers/contracts/Certifiers.sol",
+    "exportedSymbols": {
+      "Certifiers": [
+        92
+      ]
+    },
+    "id": 93,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1,
+        "literals": [
+          "solidity",
+          "0.4",
+          ".19"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "598:23:0"
+      },
+      {
+        "absolutePath": "/Users/mroon/Documents/projects/blockchaingers/contracts/Owned.sol",
+        "file": "./Owned.sol",
+        "id": 2,
+        "nodeType": "ImportDirective",
+        "scope": 93,
+        "sourceUnit": 349,
+        "src": "623:21:0",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": [],
+            "baseName": {
+              "contractScope": null,
+              "id": 3,
+              "name": "Owned",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 348,
+              "src": "695:5:0",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Owned_$348",
+                "typeString": "contract Owned"
+              }
+            },
+            "id": 4,
+            "nodeType": "InheritanceSpecifier",
+            "src": "695:5:0"
+          }
+        ],
+        "contractDependencies": [
+          307,
+          348
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 92,
+        "linearizedBaseContracts": [
+          92,
+          348,
+          307
+        ],
+        "name": "Certifiers",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "Certifiers.State",
+            "id": 8,
+            "members": [
+              {
+                "id": 5,
+                "name": "initial",
+                "nodeType": "EnumValue",
+                "src": "718:7:0"
+              },
+              {
+                "id": 6,
+                "name": "active",
+                "nodeType": "EnumValue",
+                "src": "727:6:0"
+              },
+              {
+                "id": 7,
+                "name": "inactive",
+                "nodeType": "EnumValue",
+                "src": "735:8:0"
+              }
+            ],
+            "name": "State",
+            "nodeType": "EnumDefinition",
+            "src": "707:37:0"
+          },
+          {
+            "canonicalName": "Certifiers.Certifier",
+            "id": 17,
+            "members": [
+              {
+                "constant": false,
+                "id": 10,
+                "name": "serviceUrl",
+                "nodeType": "VariableDeclaration",
+                "scope": 17,
+                "src": "777:17:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string storage pointer"
+                },
+                "typeName": {
+                  "id": 9,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "777:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string storage pointer"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 12,
+                "name": "name",
+                "nodeType": "VariableDeclaration",
+                "scope": 17,
+                "src": "804:11:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string storage pointer"
+                },
+                "typeName": {
+                  "id": 11,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "804:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string storage pointer"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 14,
+                "name": "accreditationUrl",
+                "nodeType": "VariableDeclaration",
+                "scope": 17,
+                "src": "825:23:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string storage pointer"
+                },
+                "typeName": {
+                  "id": 13,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "825:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string storage pointer"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 16,
+                "name": "state",
+                "nodeType": "VariableDeclaration",
+                "scope": 17,
+                "src": "893:11:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_enum$_State_$8",
+                  "typeString": "enum Certifiers.State"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 15,
+                  "name": "State",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 8,
+                  "src": "893:5:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_enum$_State_$8",
+                    "typeString": "enum Certifiers.State"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "Certifier",
+            "nodeType": "StructDefinition",
+            "scope": 92,
+            "src": "750:161:0",
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 21,
+            "name": "certifiers",
+            "nodeType": "VariableDeclaration",
+            "scope": 92,
+            "src": "917:47:0",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Certifier_$17_storage_$",
+              "typeString": "mapping(address => struct Certifiers.Certifier storage ref)"
+            },
+            "typeName": {
+              "id": 20,
+              "keyType": {
+                "id": 18,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "925:7:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "917:29:0",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Certifier_$17_storage_$",
+                "typeString": "mapping(address => struct Certifiers.Certifier storage ref)"
+              },
+              "valueType": {
+                "contractScope": null,
+                "id": 19,
+                "name": "Certifier",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 17,
+                "src": "936:9:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_Certifier_$17_storage_ptr",
+                  "typeString": "struct Certifiers.Certifier storage pointer"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 24,
+            "name": "certAddresses",
+            "nodeType": "VariableDeclaration",
+            "scope": 92,
+            "src": "970:30:0",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_array$_t_address_$dyn_storage",
+              "typeString": "address[] storage ref"
+            },
+            "typeName": {
+              "baseType": {
+                "id": 22,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "970:7:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "id": 23,
+              "length": null,
+              "nodeType": "ArrayTypeName",
+              "src": "970:9:0",
+              "typeDescriptions": {
+                "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
+                "typeString": "address[] storage pointer"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 64,
+              "nodeType": "Block",
+              "src": "1157:289:0",
+              "statements": [
+                {
+                  "condition": {
+                    "argumentTypes": null,
+                    "commonType": {
+                      "typeIdentifier": "t_enum$_State_$8",
+                      "typeString": "enum Certifiers.State"
+                    },
+                    "id": 43,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "baseExpression": {
+                          "argumentTypes": null,
+                          "id": 37,
+                          "name": "certifiers",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 21,
+                          "src": "1172:10:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Certifier_$17_storage_$",
+                            "typeString": "mapping(address => struct Certifiers.Certifier storage ref)"
+                          }
+                        },
+                        "id": 39,
+                        "indexExpression": {
+                          "argumentTypes": null,
+                          "id": 38,
+                          "name": "certAddress",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 26,
+                          "src": "1183:11:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "IndexAccess",
+                        "src": "1172:23:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Certifier_$17_storage",
+                          "typeString": "struct Certifiers.Certifier storage ref"
+                        }
+                      },
+                      "id": 40,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "state",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 16,
+                      "src": "1172:29:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_enum$_State_$8",
+                        "typeString": "enum Certifiers.State"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "==",
+                    "rightExpression": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 41,
+                        "name": "State",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 8,
+                        "src": "1205:5:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_enum$_State_$8_$",
+                          "typeString": "type(enum Certifiers.State)"
+                        }
+                      },
+                      "id": 42,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "lValueRequested": false,
+                      "memberName": "initial",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "1205:13:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_enum$_State_$8",
+                        "typeString": "enum Certifiers.State"
+                      }
+                    },
+                    "src": "1172:46:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "falseBody": null,
+                  "id": 63,
+                  "nodeType": "IfStatement",
+                  "src": "1168:272:0",
+                  "trueBody": {
+                    "id": 62,
+                    "nodeType": "Block",
+                    "src": "1220:220:0",
+                    "statements": [
+                      {
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 54,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "leftHandSide": {
+                            "argumentTypes": null,
+                            "baseExpression": {
+                              "argumentTypes": null,
+                              "id": 44,
+                              "name": "certifiers",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 21,
+                              "src": "1234:10:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Certifier_$17_storage_$",
+                                "typeString": "mapping(address => struct Certifiers.Certifier storage ref)"
+                              }
+                            },
+                            "id": 46,
+                            "indexExpression": {
+                              "argumentTypes": null,
+                              "id": 45,
+                              "name": "certAddress",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 26,
+                              "src": "1245:11:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_address",
+                                "typeString": "address"
+                              }
+                            },
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": true,
+                            "nodeType": "IndexAccess",
+                            "src": "1234:23:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Certifier_$17_storage",
+                              "typeString": "struct Certifiers.Certifier storage ref"
+                            }
+                          },
+                          "nodeType": "Assignment",
+                          "operator": "=",
+                          "rightHandSide": {
+                            "argumentTypes": null,
+                            "arguments": [
+                              {
+                                "argumentTypes": null,
+                                "id": 48,
+                                "name": "serviceUrl",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 28,
+                                "src": "1287:10:0",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_string_memory_ptr",
+                                  "typeString": "string memory"
+                                }
+                              },
+                              {
+                                "argumentTypes": null,
+                                "id": 49,
+                                "name": "name",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 30,
+                                "src": "1315:4:0",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_string_memory_ptr",
+                                  "typeString": "string memory"
+                                }
+                              },
+                              {
+                                "argumentTypes": null,
+                                "id": 50,
+                                "name": "accreditationUrl",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 32,
+                                "src": "1337:16:0",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_string_memory_ptr",
+                                  "typeString": "string memory"
+                                }
+                              },
+                              {
+                                "argumentTypes": null,
+                                "expression": {
+                                  "argumentTypes": null,
+                                  "id": 51,
+                                  "name": "State",
+                                  "nodeType": "Identifier",
+                                  "overloadedDeclarations": [],
+                                  "referencedDeclaration": 8,
+                                  "src": "1371:5:0",
+                                  "typeDescriptions": {
+                                    "typeIdentifier": "t_type$_t_enum$_State_$8_$",
+                                    "typeString": "type(enum Certifiers.State)"
+                                  }
+                                },
+                                "id": 52,
+                                "isConstant": false,
+                                "isLValue": false,
+                                "isPure": true,
+                                "lValueRequested": false,
+                                "memberName": "active",
+                                "nodeType": "MemberAccess",
+                                "referencedDeclaration": null,
+                                "src": "1371:12:0",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_enum$_State_$8",
+                                  "typeString": "enum Certifiers.State"
+                                }
+                              }
+                            ],
+                            "expression": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_string_memory_ptr",
+                                  "typeString": "string memory"
+                                },
+                                {
+                                  "typeIdentifier": "t_string_memory_ptr",
+                                  "typeString": "string memory"
+                                },
+                                {
+                                  "typeIdentifier": "t_string_memory_ptr",
+                                  "typeString": "string memory"
+                                },
+                                {
+                                  "typeIdentifier": "t_enum$_State_$8",
+                                  "typeString": "enum Certifiers.State"
+                                }
+                              ],
+                              "id": 47,
+                              "name": "Certifier",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 17,
+                              "src": "1260:9:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_type$_t_struct$_Certifier_$17_storage_ptr_$",
+                                "typeString": "type(struct Certifiers.Certifier storage pointer)"
+                              }
+                            },
+                            "id": 53,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "kind": "structConstructorCall",
+                            "lValueRequested": false,
+                            "names": [],
+                            "nodeType": "FunctionCall",
+                            "src": "1260:124:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Certifier_$17_memory",
+                              "typeString": "struct Certifiers.Certifier memory"
+                            }
+                          },
+                          "src": "1234:150:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Certifier_$17_storage",
+                            "typeString": "struct Certifiers.Certifier storage ref"
+                          }
+                        },
+                        "id": 55,
+                        "nodeType": "ExpressionStatement",
+                        "src": "1234:150:0"
+                      },
+                      {
+                        "expression": {
+                          "argumentTypes": null,
+                          "arguments": [
+                            {
+                              "argumentTypes": null,
+                              "id": 59,
+                              "name": "certAddress",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 26,
+                              "src": "1417:11:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_address",
+                                "typeString": "address"
+                              }
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_address",
+                                "typeString": "address"
+                              }
+                            ],
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 56,
+                              "name": "certAddresses",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 24,
+                              "src": "1398:13:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_array$_t_address_$dyn_storage",
+                                "typeString": "address[] storage ref"
+                              }
+                            },
+                            "id": 58,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "push",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": null,
+                            "src": "1398:18:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_arraypush_nonpayable$_t_address_$returns$_t_uint256_$",
+                              "typeString": "function (address) returns (uint256)"
+                            }
+                          },
+                          "id": 60,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "1398:31:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "id": 61,
+                        "nodeType": "ExpressionStatement",
+                        "src": "1398:31:0"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "id": 65,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [
+              {
+                "arguments": [],
+                "id": 35,
+                "modifierName": {
+                  "argumentTypes": null,
+                  "id": 34,
+                  "name": "onlyOwner",
+                  "nodeType": "Identifier",
+                  "overloadedDeclarations": [],
+                  "referencedDeclaration": 331,
+                  "src": "1147:9:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_modifier$__$",
+                    "typeString": "modifier ()"
+                  }
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "1147:9:0"
+              }
+            ],
+            "name": "addCertifier",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 33,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 26,
+                  "name": "certAddress",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 65,
+                  "src": "1038:19:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 25,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1038:7:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 28,
+                  "name": "serviceUrl",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 65,
+                  "src": "1067:17:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string memory"
+                  },
+                  "typeName": {
+                    "id": 27,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1067:6:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string storage pointer"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 30,
+                  "name": "name",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 65,
+                  "src": "1094:11:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string memory"
+                  },
+                  "typeName": {
+                    "id": 29,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1094:6:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string storage pointer"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 32,
+                  "name": "accreditationUrl",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 65,
+                  "src": "1115:23:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string memory"
+                  },
+                  "typeName": {
+                    "id": 31,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1115:6:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string storage pointer"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1028:111:0"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 36,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1157:0:0"
+            },
+            "scope": 92,
+            "src": "1007:439:0",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 90,
+              "nodeType": "Block",
+              "src": "1519:128:0",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "commonType": {
+                          "typeIdentifier": "t_enum$_State_$8",
+                          "typeString": "enum Certifiers.State"
+                        },
+                        "id": 79,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "argumentTypes": null,
+                          "expression": {
+                            "argumentTypes": null,
+                            "baseExpression": {
+                              "argumentTypes": null,
+                              "id": 73,
+                              "name": "certifiers",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 21,
+                              "src": "1537:10:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Certifier_$17_storage_$",
+                                "typeString": "mapping(address => struct Certifiers.Certifier storage ref)"
+                              }
+                            },
+                            "id": 75,
+                            "indexExpression": {
+                              "argumentTypes": null,
+                              "id": 74,
+                              "name": "certAddress",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 67,
+                              "src": "1548:11:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_address",
+                                "typeString": "address"
+                              }
+                            },
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "nodeType": "IndexAccess",
+                            "src": "1537:23:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Certifier_$17_storage",
+                              "typeString": "struct Certifiers.Certifier storage ref"
+                            }
+                          },
+                          "id": 76,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "state",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 16,
+                          "src": "1537:29:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_enum$_State_$8",
+                            "typeString": "enum Certifiers.State"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "!=",
+                        "rightExpression": {
+                          "argumentTypes": null,
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 77,
+                            "name": "State",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 8,
+                            "src": "1570:5:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_type$_t_enum$_State_$8_$",
+                              "typeString": "type(enum Certifiers.State)"
+                            }
+                          },
+                          "id": 78,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "lValueRequested": false,
+                          "memberName": "initial",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": null,
+                          "src": "1570:13:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_enum$_State_$8",
+                            "typeString": "enum Certifiers.State"
+                          }
+                        },
+                        "src": "1537:46:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      ],
+                      "id": 72,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 363,
+                      "src": "1529:7:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
+                        "typeString": "function (bool) pure"
+                      }
+                    },
+                    "id": 80,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1529:55:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 81,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1529:55:0"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 88,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "baseExpression": {
+                          "argumentTypes": null,
+                          "id": 82,
+                          "name": "certifiers",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 21,
+                          "src": "1594:10:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Certifier_$17_storage_$",
+                            "typeString": "mapping(address => struct Certifiers.Certifier storage ref)"
+                          }
+                        },
+                        "id": 84,
+                        "indexExpression": {
+                          "argumentTypes": null,
+                          "id": 83,
+                          "name": "certAddress",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 67,
+                          "src": "1605:11:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "IndexAccess",
+                        "src": "1594:23:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Certifier_$17_storage",
+                          "typeString": "struct Certifiers.Certifier storage ref"
+                        }
+                      },
+                      "id": 85,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "state",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 16,
+                      "src": "1594:29:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_enum$_State_$8",
+                        "typeString": "enum Certifiers.State"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 86,
+                        "name": "State",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 8,
+                        "src": "1626:5:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_enum$_State_$8_$",
+                          "typeString": "type(enum Certifiers.State)"
+                        }
+                      },
+                      "id": 87,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "lValueRequested": false,
+                      "memberName": "inactive",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "1626:14:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_enum$_State_$8",
+                        "typeString": "enum Certifiers.State"
+                      }
+                    },
+                    "src": "1594:46:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_enum$_State_$8",
+                      "typeString": "enum Certifiers.State"
+                    }
+                  },
+                  "id": 89,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1594:46:0"
+                }
+              ]
+            },
+            "id": 91,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [
+              {
+                "arguments": [],
+                "id": 70,
+                "modifierName": {
+                  "argumentTypes": null,
+                  "id": 69,
+                  "name": "onlyOwner",
+                  "nodeType": "Identifier",
+                  "overloadedDeclarations": [],
+                  "referencedDeclaration": 331,
+                  "src": "1509:9:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_modifier$__$",
+                    "typeString": "modifier ()"
+                  }
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "1509:9:0"
+              }
+            ],
+            "name": "deactivateCertifier",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 68,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 67,
+                  "name": "certAddress",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 91,
+                  "src": "1481:19:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 66,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1481:7:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1480:21:0"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 71,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1519:0:0"
+            },
+            "scope": 92,
+            "src": "1452:195:0",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 93,
+        "src": "672:977:0"
+      }
+    ],
+    "src": "598:1052:0"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.19+commit.c4cbbb05.Emscripten.clang"
+  },
+  "networks": {
+    "1523107545832": {
+      "events": {},
+      "links": {},
+      "address": "0x345ca3e014aaf5dca488057592ee47305d9b3e10",
+      "transactionHash": "0xadb17171fbabdfe4a8341c4fc3bd9fc87f4bb4778b8531bc2c883288a68cbf23"
+    }
+  },
+  "schemaVersion": "2.0.0",
+  "updatedAt": "2018-04-07T15:56:49.072Z"
+}

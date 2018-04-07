@@ -1,9 +1,10 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const { hashData } = require('../src/utils/hash')
-const web3 = require('web3')
+const { utils: { sha3 } } = require('web3')
 const app = express()
+const {web3, userAddress} = require('../src/utils/provider')
+const getSilo = require('../src/utils/idSilo')
 
 app.use(cors())
 app.use(bodyParser.json())
@@ -15,7 +16,8 @@ app.use(bodyParser.json())
 const handleCertification = (req, res, next) => {
   console.log('request received')
   const { userKey, typeIdentifier, data, hash } = req.body
-  if (hash === hashData(data)){
+  if (hash === sha3(data)){
+
     return res.status(200).send({ message: 'Verified' })
   }
     return res.status(400).send({ message: 'Invalid request' })
