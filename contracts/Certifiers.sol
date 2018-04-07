@@ -27,6 +27,7 @@ contract Certifiers is Owned {
     }
 
     mapping(address => Certifier) public certifiers;
+    address[] public certAddresses;
 
     function addCertifier(address certAddress,
         string serviceUrl,
@@ -37,6 +38,7 @@ contract Certifiers is Owned {
                                             name,
                                             accreditationUrl,
                                             false);
+    certAddresses.push(certAddress);
     }
 
     function deactivteCertifier(address certAddress) public onlyOwner {

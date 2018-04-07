@@ -29,16 +29,17 @@ contract IdSilo is Owned {
     }
 
     struct DataEntry {
+        string type;
         string name;
         bytes32 hash;  // document / claim body hash
         mapping(address => Cert) certificactions;  // certifier -> Cert instance
     }
 
     Certifiers public certifiers;
-    mapping(string => DataEntry) public dataEntries;  // document.id -> claim
+    mapping(string => DataEntry) public dataEntries;  // document.id -> dataEntry
     string[] public entrIds;
 
-    function addDataEntry(string name, bytes32 hash) public onlyOwner {
+    function addDataEntry(string name, string type, bytes32 hash) public onlyOwner {
         dataEntries[string] = DataEntry(name, hash);
         entrIds.push(string);
     }
