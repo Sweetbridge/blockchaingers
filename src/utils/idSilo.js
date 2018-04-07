@@ -48,5 +48,5 @@ export const listDataEntries = async () => {
 
 export const requestCertification = async (certAddress, name) => {
   let silo = await getSilo()
-  return silo.methods.requestCertification(certAddress, name)
+  return silo.methods.requestCertification(certAddress, name).send()
 }

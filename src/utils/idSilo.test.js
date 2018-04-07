@@ -24,9 +24,9 @@ describe('idSilo', () => {
   })
 
   it('can request a certification', () => {
-    return requestCertification()
-      .then(receipt => {
-        expect(reciept.gasUsed).toBeGreaterThanOrEqual(100000)
+    return requestCertification('0xe44c4cf797505af1527b11e4f4c6f95531b4be24', 'Micha Passport')
+      .then(reciept => {
+        expect(reciept.gasUsed).toBeGreaterThanOrEqual(45000)
       })
   })
 
