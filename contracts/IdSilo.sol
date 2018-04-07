@@ -37,12 +37,12 @@ contract IdSilo is Owned {
 
     Certifiers public certifiers;
     mapping(bytes32 => DataEntry) public dataEntries;  // document.id -> dataEntry
-    bytes32[] public entrIds;
+    bytes32[] public entryIds;
 
     function addDataEntry(string name, string dataType, bytes32 hash) public onlyOwner {
         bytes32 hashedName = keccak256(name);
         dataEntries[hashedName] = DataEntry(dataType, name, hash);
-        entrIds.push(hashedName);
+        entryIds.push(hashedName);
     }
 
     // check that the certifier is still valid

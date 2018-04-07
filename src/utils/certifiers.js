@@ -5,7 +5,7 @@ import userAddress from 'provider'
 
 let certifiers = undefined
 
-const getCertifiers = async () => {
+export const getCertifiers = async () => {
   if(!certifiers) {
     let netId = await web3.eth.net.getId()
     certifiers = new web3.eth.Contract(Certifiers.abi, Certifiers.networks[netId].address, {from: userAddress})

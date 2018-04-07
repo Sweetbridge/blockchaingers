@@ -1,14 +1,12 @@
-import web3 from './provider'
-import {createDataEntry, getSilo} from "./idSilo";
-import localStorageMock from 'mock-local-storage'
+const { utils: { sha3 } } = require('web3')
+import {createDataEntry, getSilo, listDataEntries, requestCertification} from "./idSilo";
 
 let silo
 
 describe('idSilo', () => {
   beforeAll(() => {
-    global.window.localStorage = localStorageMock
+    jest.setTimeout(1000000)
   })
-
   it('creates the idSilo if it does not exist', () => {
     return getSilo()
       .then(s => {
@@ -20,9 +18,24 @@ describe('idSilo', () => {
   })
 
   it('can add a dataEntry', () => {
-    return createDataEntry.then(reciept => {
-      console.log(receipt)
+    return createDataEntry('passport', 'Micha Passport', sha3('Micha Passport')).then(reciept => {
+      expect(reciept.gasUsed).toBeGreaterThanOrEqual(100000)
     })
+  })
+
+  it('can request a certification', () => {
+    return requestCertification()
+      .then(receipt => {
+        expect(reciept.gasUsed).toBeGreaterThanOrEqual(100000)
+      })
+  })
+
+  it('creates a list of data entries', () => {
+    return listDataEntries()
+      .then(entries => {
+        expect(entries.length).toEqual(1)
+        expect(entries[0].dataType).toEqual('passport')
+      })
   })
 })
 
