@@ -32,18 +32,21 @@ contract IdSilo is Owned {
         string dataType;
         string name;
         bytes32 hash;  // document / claim body hash
-        address[] certifiers;
         mapping(address => Cert) certifications;  // certifier -> Cert instance
     }
 
     Certifiers public certifiers;
     mapping(bytes32 => DataEntry) public dataEntries;  // document.id -> dataEntry
+    mapping(bytes32 => address[]) public dataCertifiers;
     bytes32[] public entryIds;
+
+    function getCertification(string entryId, address certifier) public view returns(Cert certification){
+        certification = dataEntries[keccak256(entryId)].certifications[certifier];
+    }
 
     function addDataEntry(string name, string dataType, bytes32 hash) public onlyOwner {
         bytes32 hashedName = keccak256(name);
-        address[] memory certs;
-        dataEntries[hashedName] = DataEntry(dataType, name, hash, certs);
+        dataEntries[hashedName] = DataEntry(dataType, name, hash);
         entryIds.push(hashedName);
     }
 
@@ -67,6 +70,6 @@ contract IdSilo is Owned {
         cert.state = state;
         cert.expiryTimestamp = expiryTimestamp;
         cert.certainty = certainty;
-        entry.certifiers.push(msg.sender);
+        dataCertifiers[hashedEntryId].push(msg.sender);
     }
 }
