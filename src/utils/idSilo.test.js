@@ -6,7 +6,7 @@ let silo
 
 describe('idSilo', () => {
   beforeAll(() => {
-
+    global.window.localStorage = localStorageMock
   })
 
   it('creates the idSilo if it does not exist', () => {
@@ -23,5 +23,6 @@ describe('idSilo', () => {
     return createDataEntry.then(reciept => {
       console.log(receipt)
     })
-  })})
+  })
+})
 

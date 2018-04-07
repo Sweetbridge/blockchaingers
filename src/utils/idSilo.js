@@ -3,7 +3,7 @@ import IdSilo from '../../build/contracts/IdSilo'
 
 import userAddress from './provider'
 
-const storage = global.window.localStorage
+const storage = window.localStorage
 
 let idSilo = undefined
 
