@@ -29,25 +29,27 @@ contract IdSilo is Owned {
     }
 
     struct DataEntry {
-        string type;
+        string dataType;
         string name;
         bytes32 hash;  // document / claim body hash
-        mapping(address => Cert) certificactions;  // certifier -> Cert instance
+        mapping(address => Cert) certifications;  // certifier -> Cert instance
     }
 
     Certifiers public certifiers;
-    mapping(string => DataEntry) public dataEntries;  // document.id -> dataEntry
-    string[] public entrIds;
+    mapping(bytes32 => DataEntry) public dataEntries;  // document.id -> dataEntry
+    bytes32[] public entrIds;
 
-    function addDataEntry(string name, string type, bytes32 hash) public onlyOwner {
-        dataEntries[string] = DataEntry(name, hash);
-        entrIds.push(string);
+    function addDataEntry(string name, string dataType, bytes32 hash) public onlyOwner {
+        bytes32 hashedName = keccak256(name);
+        dataEntries[hashedName] = DataEntry(dataType, name, hash);
+        entrIds.push(hashedName);
     }
 
     // check that the certifier is still valid
     // add the request with state requested to the certifications mapping
     function requestCertification(address certAddr, string entryId) public onlyOwner {
-        dataEntries[entryId].certifications[certAddr].state = requested;
+        bytes32 hashedEntryId = keccak256(entryId);
+        dataEntries[hashedEntryId].certifications[certAddr].state = ApprovalState.requested;
     }
 
     // must only be executable by active certifiers
@@ -55,11 +57,12 @@ contract IdSilo is Owned {
                           ApprovalState state,
                           uint256 expiryTimestamp,
                           uint16 certainty) public {
-        require(dataEntries[entryId].certifications[msg.sender].state == ApprovalState.requested);
+        bytes32 hashedEntryId = keccak256(entryId);
+        require(dataEntries[hashedEntryId].certifications[msg.sender].state == ApprovalState.requested);
 
-        dataEntries[entryId].certifications[msg.sender].state = state;
-        dataEntries[entryId].certifications[msg.sender].expiryTimestamp = expiryTimestamp;
-        dataEntries[entryId].certifications[msg.sender].certainty = certainty;
+        dataEntries[hashedEntryId].certifications[msg.sender].state = state;
+        dataEntries[hashedEntryId].certifications[msg.sender].expiryTimestamp = expiryTimestamp;
+        dataEntries[hashedEntryId].certifications[msg.sender].certainty = certainty;
 
     }
 
