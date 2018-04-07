@@ -53,17 +53,16 @@ contract IdSilo is Owned {
     }
 
     // must only be executable by active certifiers
-    function certifyClaim(string entryId,
-                          ApprovalState state,
-                          uint256 expiryTimestamp,
-                          uint16 certainty) public {
+    function certifyClaim(
+            string entryId,
+            ApprovalState state,
+            uint256 expiryTimestamp,
+            uint16 certainty) public {
         bytes32 hashedEntryId = keccak256(entryId);
-        require(dataEntries[hashedEntryId].certifications[msg.sender].state == ApprovalState.requested);
-
-        dataEntries[hashedEntryId].certifications[msg.sender].state = state;
-        dataEntries[hashedEntryId].certifications[msg.sender].expiryTimestamp = expiryTimestamp;
-        dataEntries[hashedEntryId].certifications[msg.sender].certainty = certainty;
-
+        var de = dataEntries[hashedEntryId].certifications[msg.sender];
+        require(de.state == ApprovalState.requested);
+        de.state = state;
+        de.expiryTimestamp = expiryTimestamp;
+        de.certainty = certainty;
     }
-
 }

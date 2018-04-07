@@ -12,9 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pragma solidity ^0.4.19;
+pragma solidity 0.4.19;
 
 import "./Owned.sol";
+
 
 // Certifiers repository
 contract Certifiers is Owned {
@@ -30,12 +31,15 @@ contract Certifiers is Owned {
     mapping(address => Certifier) public certifiers;
     address[] public certAddresses;
 
-    function addCertifier(address certAddress,
+    function addCertifier(
+        address certAddress,
         string serviceUrl,
         string name,
         string accreditationUrl) public onlyOwner {
-        if (certifiers[certAddress].state == State.initial){
-            certifiers[certAddress] = Certifier(serviceUrl,
+
+        if (certifiers[certAddress].state == State.initial) {
+            certifiers[certAddress] = Certifier(
+                serviceUrl,
                 name,
                 accreditationUrl,
                 State.active);
@@ -44,8 +48,7 @@ contract Certifiers is Owned {
     }
 
     function deactivteCertifier(address certAddress) public onlyOwner {
-      require(certifiers[certAddress].state == State.active);
-      certifiers[certAddress].state = State.inactive;
+        require(certifiers[certAddress].state != State.initial);
+        certifiers[certAddress].state = State.inactive;
     }
-
 }
