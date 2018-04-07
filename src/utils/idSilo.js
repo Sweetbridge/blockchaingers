@@ -29,8 +29,8 @@ export const createDataEntry = async (type, name, hash) => {
   return silo.methods.addDataEntry(name, type, hash).send()
 }
 
-const getCertifications = async (entryId) => {
-  let silo = await getSilo()
+export const getCertifications = async (entryId, siloAddress) => {
+  let silo = await getSilo(siloAddress)
   let certs = []
   let notStop = true
   let i = 0
@@ -69,3 +69,4 @@ export const requestCertification = async (certAddress, name) => {
   let silo = await getSilo()
   return silo.methods.requestCertification(certAddress, name).send()
 }
+
