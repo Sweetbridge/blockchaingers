@@ -6,14 +6,18 @@
   "author": "sweetbridge.com",
   "license": "MIT",
   "dependencies": {
-    "solium": "^1.1.6",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.3",
-    "web3": "^1.0.0-beta.33",
+    "js-base64": "^2.4.3",
     "react": "^16.3.1",
+    "react-dnd": "^2.6.0",
+    "react-dnd-html5-backend": "^2.6.0",
     "react-dom": "^16.3.1",
+    "react-images-upload": "^1.0.6",
     "react-scripts": "1.1.4",
+    "solium": "^1.1.6",
+    "web3": "^1.0.0-beta.33",
     "web3-local-signing-provider": "^1.0.4"
   },
   "devDependencies": {
@@ -35,8 +39,8 @@
     "develop:server": "nodemon --exec 'npm run start:server' --watch server",
     "test:server": "jest server",
     "test:contracts": "truffle test",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start:client": "react-scripts start",
+    "build:client": "react-scripts build",
     "test:client": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
