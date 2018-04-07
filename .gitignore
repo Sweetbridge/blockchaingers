@@ -17,4 +17,3 @@ tmp
 # editors
 .idea/**
 *.iml
-/truffle.js
