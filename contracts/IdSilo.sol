@@ -28,22 +28,38 @@ contract IdSilo is Owned {
         uint16 certainty; // basis points of certainty
     }
 
-    struct Claim {
+    struct DataEntry {
         string name;
         bytes32 hash;  // document / claim body hash
         mapping(address => Cert) certificactions;  // certifier -> Cert instance
     }
 
     Certifiers public certifiers;
-    Claim[] public attributes;  // document.id -> claim
+    mapping(string => DataEntry) public dataEntries;  // document.id -> claim
+    string[] public entrIds;
+
+    function addDataEntry(string name, bytes32 hash) public onlyOwner {
+        dataEntries[string] = DataEntry(name, hash);
+        entrIds.push(string);
+    }
+
+    // check that the certifier is still valid
+    // add the request with state requested to the certifications mapping
+    function requestCertification(address certAddr, string entryId) public onlyOwner {
+        dataEntries[entryId].certifications[certAddr].state = requested;
+    }
 
     // must only be executable by active certifiers
     function certifyClaim(string entryId,
                           ApprovalState state,
                           uint256 expiryTimestamp,
-                          uint16 certainty) public;
+                          uint16 certainty) public {
+        require(dataEntries[entryId].certifications[msg.sender].state == ApprovalState.requested);
 
-    // check that the certifier is still valid
-    // add the request with state requested to the certifications mapping
-    function requestCertification(address certAddr, string entryId) public onlyOwner {}
+        dataEntries[entryId].certifications[msg.sender].state = state;
+        dataEntries[entryId].certifications[msg.sender].expiryTimestamp = expiryTimestamp;
+        dataEntries[entryId].certifications[msg.sender].certainty = certainty;
+
+    }
+
 }
