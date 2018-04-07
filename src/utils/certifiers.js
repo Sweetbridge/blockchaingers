@@ -1,5 +1,5 @@
 import web3 from './provider'
-import Certifiers from '../build/contracts/Certifiers'
+import Certifiers from '../../build/contracts/Certifiers'
 
 import userAddress from 'provider'
 
