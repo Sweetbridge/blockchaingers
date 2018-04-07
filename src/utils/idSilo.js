@@ -1,5 +1,5 @@
 import web3 from './provider'
-import IdSilo from '../build/contracts/IdSilo'
+import IdSilo from '../../build/contracts/IdSilo'
 
 import userAddress from 'provider'
 
