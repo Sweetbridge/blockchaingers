@@ -4,6 +4,7 @@ import { Base64 } from 'js-base64'
 import HTML5Backend, { NativeTypes } from 'react-dnd-html5-backend'
 import TargetBox from './TargetBox'
 import FileList from './FileList'
+import CertifiersList from './CertifiersList'
 import { hashData } from './utils/hash'
 import config from './config'
 
@@ -12,29 +13,28 @@ export class Uploader extends Component {
   state = {
     droppedFiles: [],
     typeIdentifier: undefined,
-    idOptions: [{
-      value: 'license',
-    }, {
-      value: 'passport',
-    }, {
-      value: 'local id',
-    }]
+    idOptions: [
+      { value: 'license' },
+      { value: 'passport' },
+      { value: 'local id' }
+    ]
   }
+
 	handleFileDrop = (item, monitor) => {
 		if (monitor) {
 			const droppedFiles = monitor.getItem().files
 			this.setState({ droppedFiles })
 		}
 	}
-
-  selectDocType = ({ target: { value }}) => {
-    console.log('setting to ', value)
+  handleDropDownFor = stateId => ({ target: { value }}) => {
+    console.log('set ', stateId, ' to ', value)
     this.setState({ typeIdentifier: value })
   }
 
   handleCertificationSubmit = () => {
     const encodedData = Base64.encode(this.state.droppedFiles)
-
+    const { certifierAddress, typeIdentifier } = this.state
+    // set request in user silo, then
     fetch(config.certificationService, {
       method: 'POST',
       headers: {
@@ -42,8 +42,9 @@ export class Uploader extends Component {
         'cache-control': 'no-cache',
       },
       body: JSON.stringify({
+        certifierAddress,
+        typeIdentifier,
         data: encodedData,
-        typeIdentifier: this.state.typeIdentifier,
         hash: hashData(encodedData),
       })
     })
@@ -63,13 +64,15 @@ export class Uploader extends Component {
 					<TargetBox accepts={[FILE]} onDrop={this.handleFileDrop} />
 					<FileList files={droppedFiles} />
 				</div>
-        <select value={this.state.typeIdentifier} defaultValue='none' onChange={this.selectDocType}>
+        <select value={this.state.typeIdentifier} defaultValue='none' onChange={this.handleDropDownFor('typeIdentifier')}>
           <option disabled value='none'>select an type of identification</option>,
           <option value='license'>license</option>
           <option value='passport'>passport</option>
           <option value='local-id'>local-id</option>
         </select>
         <br/>
+        <CertifiersList certifiers={config.certifiers} onChange={this.handleDropDownFor('certifierAddress')} />
+        <br />
         <button onClick={this.handleCertificationSubmit}>Submit for Certification</button>
         </React.Fragment>
 			</DragDropContextProvider>
