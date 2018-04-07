@@ -47,7 +47,7 @@ contract Certifiers is Owned {
         }
     }
 
-    function deactivteCertifier(address certAddress) public onlyOwner {
+    function deactivateCertifier(address certAddress) public onlyOwner {
         require(certifiers[certAddress].state != State.initial);
         certifiers[certAddress].state = State.inactive;
     }

@@ -32,18 +32,25 @@ contract IdSilo is Owned {
         string dataType;
         string name;
         bytes32 hash;  // document / claim body hash
-        address[] certifiers;
         mapping(address => Cert) certifications;  // certifier -> Cert instance
     }
 
     Certifiers public certifiers;
     mapping(bytes32 => DataEntry) public dataEntries;  // document.id -> dataEntry
+    mapping(bytes32 => address[]) public dataCertifiers;
     bytes32[] public entryIds;
+
+    function getCertification(bytes32 entryId, address certifier) public view
+        returns(ApprovalState state, uint256 expiryTimestamp, uint16 certainty){
+        Cert storage cert = dataEntries[entryId].certifications[certifier];
+        state = cert.state;
+        expiryTimestamp = cert.expiryTimestamp;
+        certainty = cert.certainty;
+    }
 
     function addDataEntry(string name, string dataType, bytes32 hash) public onlyOwner {
         bytes32 hashedName = keccak256(name);
-        address[] memory certs;
-        dataEntries[hashedName] = DataEntry(dataType, name, hash, certs);
+        dataEntries[hashedName] = DataEntry(dataType, name, hash);
         entryIds.push(hashedName);
     }
 
@@ -52,6 +59,7 @@ contract IdSilo is Owned {
     function requestCertification(address certAddr, string entryId) public onlyOwner {
         bytes32 hashedEntryId = keccak256(entryId);
         dataEntries[hashedEntryId].certifications[certAddr].state = ApprovalState.requested;
+        dataCertifiers[hashedEntryId].push(certAddr);
     }
 
     // must only be executable by active certifiers
@@ -67,6 +75,5 @@ contract IdSilo is Owned {
         cert.state = state;
         cert.expiryTimestamp = expiryTimestamp;
         cert.certainty = certainty;
-        entry.certifiers.push(msg.sender);
     }
 }

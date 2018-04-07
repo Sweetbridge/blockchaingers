@@ -9,9 +9,9 @@ const storage = window.localStorage || {
 
 let idSilo = undefined
 
-export const getSilo = async () => {
-  if (!idSilo) {
-    let siloAddress = storage.getItem('siloAddress')
+export const getSilo = async (siloAddress) => {
+  if(!idSilo){
+    siloAddress = siloAddress || storage.getItem('siloAddress')
     let eth = web3().eth
     idSilo = new eth.Contract(IdSilo.abi, siloAddress, {from: userAddress})
     if (!siloAddress) {
@@ -28,6 +28,23 @@ export const createDataEntry = async (type, name, hash) => {
   return silo.methods.addDataEntry(name, type, hash).send()
 }
 
+export const getCertifications = async (entryId, siloAddress) => {
+  let silo = await getSilo(siloAddress)
+  let certs = []
+  let notStop = true
+  let i = 0
+  do {
+    try {
+      let certAddr = await silo.methods.dataCertifiers(entryId, i++).call()
+      let cert = await silo.methods.getCertification(entryId, certAddr).call()
+      certs.push(cert)
+    } catch (err) {
+      notStop = false
+    }
+  } while (notStop)
+  return certs
+}
+
 export const listDataEntries = async () => {
   let silo = await getSilo()
   let entries = []
@@ -38,6 +55,7 @@ export const listDataEntries = async () => {
     try{
       entryId = await silo.methods.entryIds(i++).call()
       let entry = await silo.methods.dataEntries(entryId).call()
+      entries.certifications = await getCertifications(entryId)
       entries.push(entry)
     } catch (err) {
       notStop = false
