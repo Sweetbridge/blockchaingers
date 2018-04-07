@@ -40,8 +40,10 @@ contract IdSilo is Owned {
     mapping(bytes32 => address[]) public dataCertifiers;
     bytes32[] public entryIds;
 
-    function getCertification(string entryId, address certifier) public view returns(Cert certification){
-        certification = dataEntries[keccak256(entryId)].certifications[certifier];
+    function getCertification(bytes32 entryId, address certifier) public view
+        returns(ApprovalState, uint256, uint16){
+        Cert storage cert = dataEntries[entryId].certifications[certifier];
+        return (cert.state, cert.expiryTimestamp, cert.certainty);
     }
 
     function addDataEntry(string name, string dataType, bytes32 hash) public onlyOwner {
@@ -55,6 +57,7 @@ contract IdSilo is Owned {
     function requestCertification(address certAddr, string entryId) public onlyOwner {
         bytes32 hashedEntryId = keccak256(entryId);
         dataEntries[hashedEntryId].certifications[certAddr].state = ApprovalState.requested;
+        dataCertifiers[hashedEntryId].push(certAddr);
     }
 
     // must only be executable by active certifiers
@@ -70,6 +73,5 @@ contract IdSilo is Owned {
         cert.state = state;
         cert.expiryTimestamp = expiryTimestamp;
         cert.certainty = certainty;
-        dataCertifiers[hashedEntryId].push(msg.sender);
     }
 }

@@ -1,5 +1,6 @@
 import {web3, userAddress} from './provider'
 import IdSilo from '../../build/contracts/IdSilo'
+const { utils: { sha3 } } = require('web3')
 
 
 const storage = window.localStorage || {
@@ -9,9 +10,9 @@ const storage = window.localStorage || {
 
 let idSilo = undefined
 
-export const getSilo = async () => {
+export const getSilo = async (siloAddress) => {
   if(!idSilo){
-    let siloAddress = storage.getItem('siloAddress')
+    siloAddress = siloAddress || storage.getItem('siloAddress')
     let eth = web3().eth
     idSilo = new eth.Contract(IdSilo.abi, siloAddress, {from: userAddress})
     if (!siloAddress) {
@@ -28,6 +29,26 @@ export const createDataEntry = async (type, name, hash) => {
   return silo.methods.addDataEntry(name, type, hash).send()
 }
 
+const getCertifications = async (entryId) => {
+  let silo = await getSilo()
+  let certs = []
+  let notStop = true
+  let i = 0
+  do {
+    try {
+      let certAddr = await silo.methods.dataCertifiers(entryId, i++).call()
+      let cert = await silo.methods.getCertification(entryId, certAddr).call()
+      cert.state = cert[0]
+      cert.expiryTimestamp = cert[1]
+      cert.certainty = cert[2]
+      certs.push(cert)
+    } catch (err) {
+      notStop = false
+    }
+  } while (notStop)
+  return certs
+}
+
 export const listDataEntries = async () => {
   let silo = await getSilo()
   let entries = []
@@ -38,6 +59,7 @@ export const listDataEntries = async () => {
     try{
       entryId = await silo.methods.entryIds(i++).call()
       let entry = await silo.methods.dataEntries(entryId).call()
+      entries.certifications = await getCertifications(entryId)
       entries.push(entry)
     } catch (err) {
       notStop = false
