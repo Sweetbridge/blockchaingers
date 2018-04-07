@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import Upload from './Upload'
 import config from './config'
 import './App.css';
+import { BrowserRouter } from 'react-router-dom'
+import AppContainer from "./Routes";
 
 class App extends Component {
   constructor (props) {
@@ -12,15 +14,9 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={config.logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to ID Silo</h1>
-        </header>
-        <Upload />
-        <p className="App-intro">
-        </p>
-      </div>
+      <BrowserRouter>
+        <AppContainer />
+      </BrowserRouter>
     );
   }
 }
