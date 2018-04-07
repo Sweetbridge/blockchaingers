@@ -5,10 +5,21 @@ import HTML5Backend, { NativeTypes } from 'react-dnd-html5-backend'
 import TargetBox from './TargetBox'
 import FileList from './FileList'
 import { hashData } from './utils/hash'
+import config from './config'
 
 
 export class Uploader extends Component {
-  state = { droppedFiles: [] }
+  state = {
+    droppedFiles: [],
+    typeIdentifier: undefined,
+    idOptions: [{
+      value: 'license',
+    }, {
+      value: 'passport',
+    }, {
+      value: 'local id',
+    }]
+  }
 	handleFileDrop = (item, monitor) => {
 		if (monitor) {
 			const droppedFiles = monitor.getItem().files
@@ -16,10 +27,15 @@ export class Uploader extends Component {
 		}
 	}
 
+  selectDocType = ({ target: { value }}) => {
+    console.log('setting to ', value)
+    this.setState({ typeIdentifier: value })
+  }
+
   handleCertificationSubmit = () => {
     const encodedData = Base64.encode(this.state.droppedFiles)
 
-    fetch('http://localhost:3333/certify', {
+    fetch(config.certificationService, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -27,7 +43,7 @@ export class Uploader extends Component {
       },
       body: JSON.stringify({
         data: encodedData,
-        typeIdentifier: 'license',
+        typeIdentifier: this.state.typeIdentifier,
         hash: hashData(encodedData),
       })
     })
@@ -43,10 +59,17 @@ export class Uploader extends Component {
 		return (
 			<DragDropContextProvider backend={HTML5Backend}>
         <React.Fragment>
-				<div>
+				<div style={{ padding: '20px' }}>
 					<TargetBox accepts={[FILE]} onDrop={this.handleFileDrop} />
 					<FileList files={droppedFiles} />
 				</div>
+        <select value={this.state.typeIdentifier} defaultValue='none' onChange={this.selectDocType}>
+          <option disabled value='none'>select an type of identification</option>,
+          <option value='license'>license</option>
+          <option value='passport'>passport</option>
+          <option value='local-id'>local-id</option>
+        </select>
+        <br/>
         <button onClick={this.handleCertificationSubmit}>Submit for Certification</button>
         </React.Fragment>
 			</DragDropContextProvider>
