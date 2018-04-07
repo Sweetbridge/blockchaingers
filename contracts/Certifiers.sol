@@ -18,7 +18,7 @@ import "./Owned.sol";
 
 // Certifiers repository
 contract Certifiers is Owned {
-    enum State{initial, active, iniactive}
+    enum State{initial, active, inactive}
 
     struct Certifier {
         string serviceUrl;
@@ -44,6 +44,8 @@ contract Certifiers is Owned {
     }
 
     function deactivteCertifier(address certAddress) public onlyOwner {
+      require(certifiers[certAddress].state == State.active);
+      certifiers[certAddress].state = State.inactive;
     }
 
 }
