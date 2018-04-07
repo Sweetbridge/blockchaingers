@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-var {assertException} = require('./utils')
+var {assertRevert} = require('./utils')
 var Certifiers = artifacts.require('Certifiers')
 
 contract('Certifiers', function (accounts) {
@@ -61,6 +61,6 @@ contract('Certifiers', function (accounts) {
 
   it('can not deactivate not existing certifier', async () => {
     let addr = '0x8fb41d5c04bd641e616fd3ac932d205665b8e000'
-    assertException(ctr.deactivateCertifier(addr))
+    assertRevert(ctr.deactivateCertifier(addr))
   })
 })
