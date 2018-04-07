@@ -44,6 +44,9 @@
     "test:client": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
+  "jest": {
+    "setupFiles": ["jest-localstorage-mock"]
+  },
   "standard": {
     "env": [
       "mocha"

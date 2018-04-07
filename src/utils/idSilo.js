@@ -1,9 +1,9 @@
 import web3 from './provider'
 import IdSilo from '../../build/contracts/IdSilo'
 
-import userAddress from 'provider'
+import userAddress from './provider'
 
-const storage = window.localStorage
+const storage = global.window.localStorage
 
 let idSilo = undefined
 
