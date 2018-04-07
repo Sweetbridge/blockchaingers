@@ -12,55 +12,67 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-var {assertException} = require('./utils')
+/* global web3 */
+
+var {assertException, assertRevert} = require('./utils')
 var IdSilo = artifacts.require('IdSilo')
 
 contract('IdSilo', function (accounts) {
   let ctr
+  let eid = web3.sha3('e1')
 
   before(async () => {
     ctr = await IdSilo.deployed()
   })
 
-  it('can add certifier', async () => {
-    let addr = '0x8fb41d5c04bd641e616fd3ac932d205665b8e7ec'
-    let url = 'ipfs://dfajhobjhkj32nm324'
-    let addrLicense = 'http://c1.com/license'
-    await ctr.addCertifier(addr, url, 'c1', addrLicense)
-    let c = await ctr.certifiers(addr)
-    c[3] = c[3].toNumber()
-    assert.deepEqual(c,
-                     [url, 'c1', addrLicense, 1])
+  it('only owner can add data entry', async () => {
+    await ctr.addDataEntry('e1', 'driving license', '0x001')
+    let de = await ctr.dataEntries(eid)
+    assert.deepEqual(de,
+      ['driving license', 'e1',
+        '0x0010000000000000000000000000000000000000000000000000000000000000'])
+
+    assertRevert(ctr.addDataEntry('e2', 'driving license', '0x002',
+                                     {from: accounts[2]}))
   })
 
-  it('can not add new certifier with same address', async () => {
-    let addr = '0x8fb41d5c04bd641e616fd3ac932d205665b8e7ec'
-    let url = 'ipfs://dfajhobjhkj32nm324'
-    let addrLicense = 'http://c1.com/license'
-    await ctr.addCertifier(addr, url, 'c2', addrLicense)
-    let c = await ctr.certifiers(addr)
-    assert.equal(c[1], 'c1',
-                 'should return old certifier')
+  it('can reupload data entry', async () => {
+    await ctr.addDataEntry('e1', 'driving license', '0x002')
+    let de = await ctr.dataEntries(eid)
+    assert.deepEqual(de,
+      ['driving license', 'e1',
+        '0x0020000000000000000000000000000000000000000000000000000000000000'])
+    assert.equal(eid, await ctr.entryIds(0))
+    assertException(ctr.entryIds(1), 'should have only one data entry')
   })
 
-  it('can deactivate active certifier', async () => {
-    let addr = '0x8fb41d5c04bd641e616fd3ac932d205665b8e7ec'
-    await ctr.deactivateCertifier(addr)
-    let c = await ctr.certifiers(addr)
-    assert.equal(c[3].toNumber(), 2,
-                 'should have inactive state')
+  it('can\'t request certification of not exsisting data entry', async () => {
+    assertRevert(ctr.requestCertification(accounts[2], 'unknown'))
   })
 
-  it('can deactivate inactivate certifier', async () => {
-    let addr = '0x8fb41d5c04bd641e616fd3ac932d205665b8e7ec'
-    await ctr.deactivateCertifier(addr)
-    let c = await ctr.certifiers(addr)
-    assert.equal(c[3].toNumber(), 2,
-                 'should have inactive state')
+  it('request and get certification', async () => {
+    await ctr.requestCertification(accounts[2], 'e1')
+    let c = await ctr.getCertification(eid, accounts[2])
+    c = c.map(n => n.toNumber())
+    assert.deepEqual(c, [3, 0, 0])
   })
 
-  it('can not deactivate not existing certifier', async () => {
-    let addr = '0x8fb41d5c04bd641e616fd3ac932d205665b8e000'
-    assertException(ctr.deactivateCertifier(addr))
+  it('can\'t set invalid state into claim', async () => {
+    assertRevert(ctr.certifyClaim('e1', 0, 2000, 9000, {from: accounts[2]}))
+  })
+
+  it('be able certify claim', async () => {
+    await ctr.certifyClaim('e1', 1, 2000, 9000, {from: accounts[2]})
+    let c = await ctr.getCertification(eid, accounts[2])
+    c = c.map(n => n.toNumber())
+    assert.deepEqual(c, [1, 2000, 9000])
+  })
+
+  it('can\'t certify not requested claim', async () => {
+    assertRevert(ctr.certifyClaim('e1', 1, 2000, 9000, {from: accounts[3]}))
+  })
+
+  it('can\'t change claim', async () => {
+    assertRevert(ctr.certifyClaim('e1', 1, 2000, 9000, {from: accounts[2]}))
   })
 })
