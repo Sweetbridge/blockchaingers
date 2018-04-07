@@ -41,6 +41,14 @@ contract IdSilo is Owned {
     mapping(bytes32 => address[]) public dataCertifiers;
     bytes32[] public entryIds;
 
+    function IdSilo(address certifiers_) public {
+        certifiers = Certifiers(certifiers_);
+    }
+
+    function changeCertifiers(address certifiers_) public onlyOwner {
+        certifiers = Certifiers(certifiers_);
+    }
+
     // @param entryId: keccak256 hash of data entry id
     function getCertification(bytes32 entryId, address certifier) public view
         returns(ApprovalState, uint256, uint16) {
@@ -59,21 +67,21 @@ contract IdSilo is Owned {
     // check that the certifier is still valid
     // add the request with state requested to the certifications mapping
     function requestCertification(address certAddr, string entryId) public onlyOwner {
-            // TODO check certifier (msg.sender)
+        require(certifiers.exists(certAddr));
         bytes32 hashedEntryId = keccak256(entryId);
         require(dataEntries[hashedEntryId].hash != '');
         dataEntries[hashedEntryId].certifications[certAddr].state = ApprovalState.requested;
         dataCertifiers[hashedEntryId].push(certAddr);
     }
 
-    // must only be executable by active certifiers
+    // used by certifier authority to set a claim response
     function certifyClaim(
             string entryId,
             ApprovalState state,
             uint256 expiryTimestamp,
             uint16 certainty) public {
+        require(certifiers.exists(msg.sender));
         require(state == ApprovalState.approved || state == ApprovalState.denied);
-            // TODO check certifier (msg.sender)
         bytes32 hashedEntryId = keccak256(entryId);
         DataEntry storage entry = dataEntries[hashedEntryId];
         Cert storage cert = entry.certifications[msg.sender];

@@ -31,6 +31,10 @@ contract Certifiers is Owned {
     mapping(address => Certifier) public certifiers;
     address[] public certAddresses;
 
+    function exists(address certAddr) public view returns(bool) {
+        return certifiers[certAddr].state != State.initial;
+    }
+
     function addCertifier(
         address certAddress,
         string serviceUrl,

@@ -50,6 +50,10 @@ contract('IdSilo', function (accounts) {
     assertRevert(ctr.requestCertification(accounts[2], 'unknown'))
   })
 
+  it('can\'t request certification from not recognised cert authority', async () => {
+    assertRevert(ctr.requestCertification(accounts[3], 'unknown'))
+  })
+
   it('request and get certification', async () => {
     await ctr.requestCertification(accounts[2], 'e1')
     let c = await ctr.getCertification(eid, accounts[2])
