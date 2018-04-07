@@ -38,9 +38,6 @@ const getCertifications = async (entryId) => {
     try {
       let certAddr = await silo.methods.dataCertifiers(entryId, i++).call()
       let cert = await silo.methods.getCertification(entryId, certAddr).call()
-      cert.state = cert[0]
-      cert.expiryTimestamp = cert[1]
-      cert.certainty = cert[2]
       certs.push(cert)
     } catch (err) {
       notStop = false

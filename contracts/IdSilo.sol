@@ -41,9 +41,11 @@ contract IdSilo is Owned {
     bytes32[] public entryIds;
 
     function getCertification(bytes32 entryId, address certifier) public view
-        returns(ApprovalState, uint256, uint16){
+        returns(ApprovalState state, uint256 expiryTimestamp, uint16 certainty){
         Cert storage cert = dataEntries[entryId].certifications[certifier];
-        return (cert.state, cert.expiryTimestamp, cert.certainty);
+        state = cert.state;
+        expiryTimestamp = cert.expiryTimestamp;
+        certainty = cert.certainty;
     }
 
     function addDataEntry(string name, string dataType, bytes32 hash) public onlyOwner {
