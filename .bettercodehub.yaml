@@ -1,0 +1,10 @@
+component_depth: 1
+languages:
+- javascript
+
+exclude:
+- webpack.*
+- build/
+- build.*
+- env.js
+- paths.js
