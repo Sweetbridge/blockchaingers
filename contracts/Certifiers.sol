@@ -18,12 +18,13 @@ import "./Owned.sol";
 
 // Certifiers repository
 contract Certifiers is Owned {
+    enum State{initial, active, iniactive}
 
     struct Certifier {
         string serviceUrl;
         string name;
         string accreditationUrl;  // any document type, either ipfs
-        bool active;
+        State state;
     }
 
     mapping(address => Certifier) public certifiers;
@@ -33,12 +34,13 @@ contract Certifiers is Owned {
         string serviceUrl,
         string name,
         string accreditationUrl) public onlyOwner {
-
-        certifiers[certAddress] = Certifier(serviceUrl,
-                                            name,
-                                            accreditationUrl,
-                                            false);
-    certAddresses.push(certAddress);
+        if (certifiers[certAddress].state == State.initial){
+            certifiers[certAddress] = Certifier(serviceUrl,
+                name,
+                accreditationUrl,
+                State.active);
+            certAddresses.push(certAddress);
+        }
     }
 
     function deactivteCertifier(address certAddress) public onlyOwner {
