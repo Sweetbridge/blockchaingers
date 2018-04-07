@@ -1,5 +1,5 @@
 import {web3, userAddress} from './provider'
-import IdSilo from '../../build/contracts/IdSilo'
+import IdSilo from '../contracts/IdSilo'
 
 
 const storage = window.localStorage || {
@@ -10,7 +10,7 @@ const storage = window.localStorage || {
 let idSilo = undefined
 
 export const getSilo = async () => {
-  if(!idSilo){
+  if (!idSilo) {
     let siloAddress = storage.getItem('siloAddress')
     let eth = web3().eth
     idSilo = new eth.Contract(IdSilo.abi, siloAddress, {from: userAddress})

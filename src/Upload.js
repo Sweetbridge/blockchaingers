@@ -6,12 +6,14 @@ import TargetBox from './TargetBox'
 import FileList from './FileList'
 import CertifiersList from './CertifiersList'
 import { hashData } from './utils/hash'
+import { createDataEntry, requestCertification } from './utils/idSilo'
 import config from './config'
 
 
 export class Uploader extends Component {
   state = {
     droppedFiles: [],
+    certifierAddress: undefined,
     typeIdentifier: undefined,
     idOptions: [
       { value: 'license' },
@@ -28,13 +30,14 @@ export class Uploader extends Component {
 	}
   handleDropDownFor = stateId => ({ target: { value }}) => {
     console.log('set ', stateId, ' to ', value)
-    this.setState({ typeIdentifier: value })
+    this.setState({ [stateId]: value })
   }
 
   handleCertificationSubmit = () => {
     const encodedData = Base64.encode(this.state.droppedFiles)
+    const hash = hashData(encodedData)
     const { certifierAddress, typeIdentifier } = this.state
-    // set request in user silo, then
+    
     fetch(config.certificationService, {
       method: 'POST',
       headers: {
@@ -55,7 +58,7 @@ export class Uploader extends Component {
 
 	render() {
 		const { FILE } = NativeTypes
-		const { droppedFiles } = this.state
+		const { droppedFiles, typeIdentifier, certifierAddress } = this.state
 
 		return (
 			<DragDropContextProvider backend={HTML5Backend}>
@@ -73,7 +76,7 @@ export class Uploader extends Component {
         <br/>
         <CertifiersList certifiers={config.certifiers} onChange={this.handleDropDownFor('certifierAddress')} />
         <br />
-        <button onClick={this.handleCertificationSubmit}>Submit for Certification</button>
+        <button onClick={this.handleCertificationSubmit} disabled={!(typeIdentifier && certifierAddress)}>Submit for Certification</button>
         </React.Fragment>
 			</DragDropContextProvider>
 		)

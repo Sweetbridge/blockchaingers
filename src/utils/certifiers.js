@@ -1,7 +1,6 @@
+import userAddress from './provider'
 import web3 from './provider'
-import Certifiers from '../../build/contracts/Certifiers'
-
-import userAddress from 'provider'
+import Certifiers from '../contracts/Certifiers'
 
 let certifiers = undefined
 
