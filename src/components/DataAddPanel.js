@@ -1,10 +1,7 @@
 import React from 'react'
 import {
   Card, Container, Row, Col,
-  ListGroup, ListGroupItem, CardBody,
-  CardImage, CardTitle, Button, CardText,
-  Dropdown, DropdownToggle, DropdownMenu, DropdownItem,
-  InputGroup, Input
+  ListGroup, ListGroupItem, Button
 } from 'reactstrap'
 import Upload from '../Upload'
 import { Base64 } from 'js-base64'
@@ -15,44 +12,6 @@ const identificationTypes = [
   'Driver\'s License Number',
   'Passport Number'
 ]
-
-// const AddIdentification = ({ isOpen = false, onSelect, typeIdentifier, onInputChange, onSubmit, selectIdentityType }) =>
-//     <Row style={{ marginBottom: '20px'}}>
-//       <Col xs='12'>
-//         <Card>
-//         <CardBody>
-//           <CardTitle>Add Identification</CardTitle>
-//             <input placeholder="Name Your Identification" onChange={onInputChange}/>
-//           <br/>
-//             <select type='select' defaultValue='none' value={typeIdentifier} onChange={onSelect}>
-//               <option disabled value='none'>Select an Identification type</option>
-//               {identificationTypes.map(type => <option value={type}>{type}</option>)}
-//             </select>
-//           <br/>
-//           <br/>
-//           <Button disabled={true} onClick={() => createDataEntry()}>Submit Identification</Button>
-//         </CardBody>
-//         </Card>
-//       </Col>
-//     </Row>
-
-// const CertificationRequester = ({ isOpen = false, onSelect, certifierAddress }) =>
-  // <Row>
-  //   <Col xs='12'>
-  //   <Card>
-  //   <CardBody>
-  //     <CardTitle>Request Certification</CardTitle>
-  //       <select defaultValue='none' value={certifierAddress} onChange={onSelect}>
-  //         <option disabled valut='none'>Select a certifier</option>
-  //         {identificationTypes.map(type => <option value={type}>{type}</option>)}
-  //       </select>
-  //       <br/>
-  //       <br/>
-  //     <Button disabled={true}>Submit Certification</Button>
-  //   </CardBody>
-  //   </Card>
-  //   </Col>
-  // </Row>
 
   const IdentityList = ({ entries }) =>
     <Col xs="6">
@@ -111,7 +70,6 @@ class DataAddPanel extends React.PureComponent {
 
   render() {
     const { entries, selected, certifierAddress, typeIdentifier } = this.state
-
     return (
       <div style={{ background: '#79d286', minHeight: '1000px', padding: '30px' }}>
         <Container>
@@ -126,6 +84,5 @@ class DataAddPanel extends React.PureComponent {
     )
   }
 }
-
 
 export default DataAddPanel

@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
-import {DragDropContext, DragDropContextProvider} from 'react-dnd'
-import {Base64} from 'js-base64'
-import HTML5Backend, {NativeTypes} from 'react-dnd-html5-backend'
+import React, { Component } from 'react'
+import { DragDropContext, DragDropContextProvider } from 'react-dnd'
+import { Base64 } from 'js-base64'
+import HTML5Backend, { NativeTypes } from 'react-dnd-html5-backend'
 import TargetBox from './TargetBox'
 import FileList from './FileList'
 import CertifiersList from './CertifiersList'
@@ -20,28 +20,21 @@ export class Uploader extends Component {
     certifierAddress: undefined,
     typeIdentifier: undefined,
     idOptions: [
-      {value: 'license'},
-      {value: 'passport'},
-      {value: 'local id'}
+      { value: 'license' },
+      { value: 'passport' },
+      { value: 'local id' }
     ]
   }
 
-  handleFileDrop = (item, monitor) => {
-    if (monitor) {
-      const droppedFiles = monitor.getItem().files
-      var reader = new FileReader()
-      reader.onload = (evt) => {
-        let bytes = new TextEncoder('utf8').encode(evt.currentTarget.result)
-        let b64String = base64js.fromByteArray(bytes)
-        this.setState({droppedFile: b64String})
-      }
-      reader.readAsBinaryString(droppedFiles[0])
-    }
-  }
-
-  handleDropDownFor = stateId => ({target: {value}}) => {
+	handleFileDrop = (item, monitor) => {
+		if (monitor) {
+			const droppedFiles = monitor.getItem().files
+			this.setState({ droppedFiles })
+		}
+	}
+  handleDropDownFor = stateId => ({ target: { value }}) => {
     console.log('set ', stateId, ' to ', value)
-    this.setState({[stateId]: value})
+    this.setState({ [stateId]: value })
   }
 
   handleCertificationSubmit = async () => {
@@ -69,11 +62,10 @@ export class Uploader extends Component {
       console.log('certifyClaim', err.message)
     }
 
-    const success = await isCertified(silo.options.address, typeIdentifier)
+    const success = await isCertified(silo.options.address, identificationName)
 
     this.setState({success: success})
   }
-
 
   render() {
     const {FILE} = NativeTypes
