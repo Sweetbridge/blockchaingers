@@ -56,10 +56,10 @@ export const listDataEntries = async () => {
   let i = 0
   let notStop = true
   do {
-    try{
+    try {
       entryId = await silo.methods.entryIds(i++).call()
       let entry = await silo.methods.dataEntries(entryId).call()
-      entries.certifications = await getCertifications(entryId)
+      entry.certifications = await getCertifications(entryId)
       entries.push(entry)
     } catch (err) {
       notStop = false

@@ -6,19 +6,14 @@ export default class FileList extends Component {
 		files: PropTypes.arrayOf(PropTypes.object),
 	}
 
-	listFiles = files => files.map(file => (
-			<li key={file.name}>{`'${file.name}' of size '${file.size}' and type '${
-				file.type
-			}'`}</li>
-		))
 
 	render() {
-		const { files } = this.props
+		const { files = [] } = this.props
 
-		if (files.length === 0) {
-			return <div>Nothing to display</div>
+		if (files.length > 0) {
+			return <div>File Uploaded</div>
 		}
 
-		return <div>{this.listFiles(files)}</div>
+		return <div>Waiting for File</div>
 	}
 }

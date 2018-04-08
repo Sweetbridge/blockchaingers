@@ -5,6 +5,7 @@ import HTML5Backend, {NativeTypes} from 'react-dnd-html5-backend'
 import TargetBox from './TargetBox'
 import FileList from './FileList'
 import CertifiersList from './CertifiersList'
+import { Card, CardTitle } from 'reactstrap'
 import {createDataEntry, getSilo, requestCertification} from './utils/idSilo'
 // import { createDataEntry, requestCertification } from './utils/idSilo'
 import config from './config'
@@ -12,7 +13,6 @@ import base64js from 'base64-js'
 import {isCertified} from "./utils/verifiers";
 
 const {utils: {sha3}} = require('web3')
-
 
 export class Uploader extends Component {
   state = {
@@ -47,23 +47,23 @@ export class Uploader extends Component {
   handleCertificationSubmit = async () => {
     const encodedData = this.state.droppedFile
     const hash = sha3(encodedData)
-    const {certifierAddress, typeIdentifier} = this.state
+    const {certifierAddress, typeIdentifier, identificationName} = this.state
 
     try {
-      await createDataEntry(typeIdentifier, typeIdentifier, hash)
+      await createDataEntry(typeIdentifier, identificationName, hash)
     } catch (err) {
       console.log('createDataEntry', err.message)
     }
 
     try {
-      await requestCertification(certifierAddress, typeIdentifier)
+      await requestCertification(certifierAddress, identificationName)
     } catch (err) {
       console.log('requestCertification', err.message)
     }
 
     const silo = await getSilo()
     try {
-      await silo.methods.certifyClaim(typeIdentifier, 1, (new Date()).getTime(), 9600)
+      await silo.methods.certifyClaim(identificationName, 1, (new Date()).getTime(), 9600)
         .send({from: certifierAddress})
     } catch (err) {
       console.log('certifyClaim', err.message)
@@ -77,32 +77,36 @@ export class Uploader extends Component {
 
   render() {
     const {FILE} = NativeTypes
-    const {droppedFiles, typeIdentifier, certifierAddress, success} = this.state
+    const {droppedFile, typeIdentifier, certifierAddress, success, identificationName} = this.state
     const validated = success ? 'VALIDATED' : 'NOT SUBMITTED'
     return (
-      <DragDropContextProvider backend={HTML5Backend}>
-        <React.Fragment>
-          <div style={{padding: '20px'}}>
-            <TargetBox accepts={[FILE]} onDrop={this.handleFileDrop}/>
-            <FileList files={droppedFiles}/>
-          </div>
-          <select value={this.state.typeIdentifier} defaultValue='none'
-                  onChange={this.handleDropDownFor('typeIdentifier')}>
-            <option disabled value='none'>select an type of identification</option>
-            ,
-            <option value='license'>license</option>
-            <option value='passport'>passport</option>
-            <option value='local-id'>local-id</option>
-          </select>
-          <br/>
-          <CertifiersList certifiers={config.certifiers}
-                          onChange={this.handleDropDownFor('certifierAddress')}/>
-          <br/>
-          <button onClick={this.handleCertificationSubmit}
-                  disabled={!(typeIdentifier && certifierAddress)}>Submit for
-            Certification {validated}</button>
-        </React.Fragment>
-      </DragDropContextProvider>
+      <Card style={{ padding: '20px' }}>
+        <CardTitle>Request Certification</CardTitle>
+        <DragDropContextProvider backend={HTML5Backend}>
+          <React.Fragment>
+            <div style={{padding: '20px'}}>
+              <TargetBox accepts={[FILE]} onDrop={this.handleFileDrop}/>
+              <FileList files={droppedFile}/>
+            </div>
+            <input type='text' placeholder='identification name' value={this.state.identificationName} onChange={this.handleDropDownFor('identificationName')} />
+            <br/>
+            <select value={this.state.typeIdentifier} defaultValue='none' onChange={this.handleDropDownFor('typeIdentifier')}>
+              <option disabled value='none'>Select Identification Type</option>
+              ,
+              <option value='license'>license</option>
+              <option value='passport'>passport</option>
+              <option value='local-id'>local-id</option>
+            </select>
+            <br/>
+            <CertifiersList certifiers={config.certifiers}
+                            onChange={this.handleDropDownFor('certifierAddress')}/>
+            <br/>
+            <button onClick={this.handleCertificationSubmit}
+                    disabled={!(typeIdentifier && certifierAddress && droppedFile && identificationName)}>Submit for
+              Certification {validated}</button>
+          </React.Fragment>
+        </DragDropContextProvider>
+      </Card>
     )
   }
 }
