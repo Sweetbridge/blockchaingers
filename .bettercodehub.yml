@@ -7,3 +7,4 @@ exclude:
 - .*/env\.js
 - .*/paths\.js
 - /node_modules
+- /src/contracts
