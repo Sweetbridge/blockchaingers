@@ -99,6 +99,31 @@ class DataVerificationPanel extends React.PureComponent {
     }
   }
 
+  getResult = () => (
+    <Col xs="4" className={'left-column'}>
+      <Card style={this.state.displayResultSuccess}>
+        <CardImg top width="100%"
+                 src="/approved.svg"
+                 alt="Card image cap"/>
+        <CardBody>
+          <CardTitle>Approval</CardTitle>
+          <CardText>Your information has been successfully approved. You are now a
+            member of SweetBridge</CardText>
+        </CardBody>
+      </Card>
+      <Card style={this.state.displayResultFailure}>
+        <CardImg top width="100%"
+                 src="/rejected.svg"
+                 alt="Card image cap"/>
+        <CardBody>
+          <CardTitle>Rejection</CardTitle>
+          <CardText>Your information could not be verified. Please correct the
+            information</CardText>
+        </CardBody>
+      </Card>
+    </Col>
+  )
+
   render() {
     const {FILE} = NativeTypes
     const {entries, selected, displayResult, droppedFiles} = this.state
@@ -153,28 +178,7 @@ class DataVerificationPanel extends React.PureComponent {
                   </Form>
                 </Card>
               </Col>
-              <Col xs="4" className={'left-column'}>
-                <Card style={this.state.displayResultSuccess}>
-                  <CardImg top width="100%"
-                           src="/approved.svg"
-                           alt="Card image cap"/>
-                  <CardBody>
-                    <CardTitle>Approval</CardTitle>
-                    <CardText>Your information has been successfully approved. You are now a
-                      member of SweetBridge</CardText>
-                  </CardBody>
-                </Card>
-                <Card style={this.state.displayResultFailure}>
-                  <CardImg top width="100%"
-                           src="/rejected.svg"
-                           alt="Card image cap"/>
-                  <CardBody>
-                    <CardTitle>Rejection</CardTitle>
-                    <CardText>Your information could not be verified. Please correct the
-                      information</CardText>
-                  </CardBody>
-                </Card>
-              </Col>
+              {this.getResult()}
             </Row>
           </Container>
         </DragDropContextProvider>
