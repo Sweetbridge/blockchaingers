@@ -16,3 +16,19 @@ select,
 textarea {
     font-family: SuisseIntl-Light, sans-serif !important;
 }
+
+.navbar {
+  background: #FFFFFF!important;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10)!important;
+}
+
+.list-group{
+  background: #F1F1F1;
+  width:474px;
+  height: 669px;
+}
+
+.column-title {
+  background: #FFFFFF;
+  box-shadow: 0 3px 10px 0 rgba(0,0,0,0.10);
+}

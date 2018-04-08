@@ -98,7 +98,12 @@ export class Uploader extends Component {
               </div>
           }
           <br/>
-            <input type='text' placeholder='identification name' value={this.state.identificationName} onChange={this.handleDropDownFor('identificationName')} />
+            <input type='text' placeholder='identification name' style={{
+              'backgroundImage': 'linear-gradient(-135deg, #FFFFFF 0%, #F6F6F6 100%)',
+              'boxShadow': 'inset 0 1px 1px 1px rgba(0,0,0,0.20)',
+              'height':'38px',
+            }}
+            value={this.state.identificationName} onChange={this.handleDropDownFor('identificationName')} />
             <br/>
             <select value={this.state.typeIdentifier} defaultValue='none' onChange={this.handleDropDownFor('typeIdentifier')}>
               <option disabled value='none'>Select Identification Type</option>

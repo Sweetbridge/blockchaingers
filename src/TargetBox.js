@@ -4,12 +4,12 @@ import PropTypes from 'prop-types'
 import { DropTarget } from 'react-dnd'
 
 const style = {
-	border: '1px solid gray',
-	height: '15rem',
-	width: '15rem',
-	padding: '2rem',
+	border: '1px solid #5ABC77',
+	width: '288px',
+	padding: '10px 0px 8px 10px',
   margin: 'auto',
 	textAlign: 'center',
+	color: '#5ABC77',
 }
 
 export class TargetBox extends React.PureComponent {

@@ -16,13 +16,17 @@ const identificationTypes = [
   const IdentityList = ({ entries }) =>
     <Col xs="6">
       <ListGroup>
-        <ListGroupItem>
+        <ListGroupItem style={{
+          background: '#FFFFFF',
+          boxShadow: '0 3px 10px 0 rgba(0,0,0,0.10)',
+          zIndex: '99',}}>
           <div className="float-left">Your IDs</div>
         </ListGroupItem>
         {
           entries.length > 0 ?
             entries.map(entry =>
-              <ListGroupItem>
+              <ListGroupItem style={{
+                background: '#F1F1F1',}}>
                 <div className="float-left">{entry.name}</div>
                 {
                   entry.certifications.some(cert => cert.state === '1') ?
@@ -33,7 +37,8 @@ const identificationTypes = [
                 }
               </ListGroupItem>
             )
-            : <ListGroupItem>You currently do not have any identification entries</ListGroupItem>
+            : <ListGroupItem style={{
+              background: '#F1F1F1',}}>You currently do not have any identification entries</ListGroupItem>
         }
       </ListGroup>
     </Col>
@@ -76,7 +81,7 @@ class DataAddPanel extends React.PureComponent {
   render() {
     const { entries, selected, certifierAddress, typeIdentifier } = this.state
     return (
-      <div style={{ background: '#79d286', minHeight: '1000px', padding: '30px' }}>
+      <div style={{ backgroundImage: 'linear-gradient(44deg, #9CED90 0%, #5FCC80 100%)', minHeight: '1000px', padding: '30px' }}>
         <Container>
           <Row>
             <IdentityList entries={entries} />
