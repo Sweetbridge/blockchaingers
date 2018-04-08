@@ -3,8 +3,8 @@ languages:
 - javascript
 
 exclude:
-- webpack.*
-- build/
-- build.*
-- env.js
-- paths.js
+- .*/webpack.*
+- .*/build.*
+- /build
+- .*/env\.js
+- .*/paths\.js
