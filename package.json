@@ -81,9 +81,9 @@
     "develop:server": "nodemon --exec 'npm run start:server' --watch server",
     "test:server": "jest server",
     "test:client": "node scripts/test.js --env=jsdom",
-    "test:contracts": "truffle test",
+    "test:contracts": "cd truffle; truffle test",
     "build:client": "node scripts/build.js",
-    "build:contracts": "truffle compile"
+    "build:contracts": "cd truffle; truffle compile"
   },
   "jest": {
     "collectCoverageFrom": [
