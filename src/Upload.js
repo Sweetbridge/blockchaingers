@@ -20,9 +20,10 @@ export class Uploader extends Component {
     certifierAddress: undefined,
     typeIdentifier: undefined,
     idOptions: [
-      { value: 'license' },
-      { value: 'passport' },
-      { value: 'local id' }
+      { value: 'Drivering License Image', type: 'file' },
+      { value: 'Drivering License Number', type: 'text' },
+      { value: 'Government Passport', type: 'file' },
+      { value: 'Government ID Number', type: 'text' }
     ]
   }
 
@@ -37,6 +38,7 @@ export class Uploader extends Component {
   //   this.setState(({ textFile }) => ({ droppedFiles: textFile }))
   // }
   handleDropDownFor = stateId => ({ target: { value }}) => {
+    this.setState({ success: false })
     console.log('set ', stateId, ' to ', value)
     this.setState({ [stateId]: value })
   }
@@ -67,7 +69,7 @@ export class Uploader extends Component {
     }
 
     const success = await isCertified(silo.options.address, identificationName)
-
+    await this.props.updateEntities()
     this.setState({success: success})
   }
 

@@ -61,12 +61,17 @@ class DataAddPanel extends React.PureComponent {
     }
 
   componentDidMount() {
+    this.updateEntities()
+  }
+
+  updateEntities = () => {
     getSilo()
       .then(() => listDataEntries())
       .then(entries => Promise.all(entries.map(entry => getCertifications(entry.hash).then(certs => Object.assign(entry, { certs }))
     )))
       .then(entries => { this.setState({ entries }); console.log('some entries: ', entries) } )
   }
+
 
   render() {
     const { entries, selected, certifierAddress, typeIdentifier } = this.state
@@ -76,7 +81,7 @@ class DataAddPanel extends React.PureComponent {
           <Row>
             <IdentityList entries={entries} />
             <Col xs="6">
-              <Upload />
+              <Upload updateEntities={this.updateEntities}/>
             </Col>
          </Row>
         </Container>
