@@ -32,13 +32,17 @@ export class Uploader extends Component {
 			this.setState({ droppedFiles })
 		}
 	}
+
+  // handleTextFile = ({ target: { value: }}) => {
+  //   this.setState(({ textFile }) => ({ droppedFiles: textFile }))
+  // }
   handleDropDownFor = stateId => ({ target: { value }}) => {
     console.log('set ', stateId, ' to ', value)
     this.setState({ [stateId]: value })
   }
 
   handleCertificationSubmit = async () => {
-    const encodedData = this.state.droppedFile
+    const encodedData = this.state.droppedFiles
     const hash = sha3(encodedData)
     const {certifierAddress, typeIdentifier, identificationName} = this.state
 
@@ -69,22 +73,33 @@ export class Uploader extends Component {
 
   render() {
     const {FILE} = NativeTypes
-    const {droppedFile, typeIdentifier, certifierAddress, success, identificationName} = this.state
+    const {droppedFiles, typeIdentifier, certifierAddress, success, identificationName} = this.state
     const validated = success ? 'VALIDATED' : 'NOT SUBMITTED'
     return (
       <Card style={{ padding: '20px' }}>
         <CardTitle>Request Certification</CardTitle>
+        <select defaultValue='file' value={this.state.identityFormat} onClick={() => this.setState({ droppedFiles: [] })} onChange={this.handleDropDownFor('identityFormat')}>
+          <option disable value='none'>Identity Format</option>
+          <option value='file'>File</option>
+          <option value='text'>Text</option>
+        </select>
+        <br/>
+
         <DragDropContextProvider backend={HTML5Backend}>
           <React.Fragment>
-            <div style={{padding: '20px'}}>
-              <TargetBox accepts={[FILE]} onDrop={this.handleFileDrop}/>
-              <FileList files={droppedFile}/>
-            </div>
+          {
+            this.state.identityFormat === 'text' ?
+              <input placeholder='identification text' onChange={this.handleDropDownFor('droppedFiles')} type='text' value={this.state.textFile}/> :
+              <div style={{padding: '20px'}}>
+                <TargetBox accepts={[FILE]} onDrop={this.handleFileDrop}/>
+                <FileList files={droppedFiles}/>
+              </div>
+          }
+          <br/>
             <input type='text' placeholder='identification name' value={this.state.identificationName} onChange={this.handleDropDownFor('identificationName')} />
             <br/>
             <select value={this.state.typeIdentifier} defaultValue='none' onChange={this.handleDropDownFor('typeIdentifier')}>
               <option disabled value='none'>Select Identification Type</option>
-              ,
               <option value='license'>license</option>
               <option value='passport'>passport</option>
               <option value='local-id'>local-id</option>
@@ -94,7 +109,7 @@ export class Uploader extends Component {
                             onChange={this.handleDropDownFor('certifierAddress')}/>
             <br/>
             <button onClick={this.handleCertificationSubmit}
-                    disabled={!(typeIdentifier && certifierAddress && droppedFile && identificationName)}>Submit for
+                    disabled={!(typeIdentifier && certifierAddress && droppedFiles.length && identificationName)}>Submit for
               Certification {validated}</button>
           </React.Fragment>
         </DragDropContextProvider>
