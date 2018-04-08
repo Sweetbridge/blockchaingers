@@ -1,35 +1,42 @@
 import React from 'react'
 import {
   Card, Container, Row, Col,
-  ListGroup, ListGroupItem, CardBody,
-  CardImage, CardTitle, Button, CardText,
-  Dropdown, DropdownToggle, DropdownMenu, DropdownItem,
-  InputGroup, Input
+  ListGroup, ListGroupItem, Button
 } from 'reactstrap'
-import { listDataEntries } from '../utils/idSilo'
+import Upload from '../Upload'
+import { Base64 } from 'js-base64'
+import { hashData } from '../utils/hash'
+import { createDataEntry, requestCertification, getCertifications, listDataEntries, getSilo } from '../utils/idSilo'
+import config from '../config'
 const identificationTypes = [
   'Driver\'s License Number',
   'Passport Number'
 ]
 
-const AddIdentification = ({ isOpen = true}) =>
-  <CardBody>
-    <CardTitle>Add Identification</CardTitle>
-    <InputGroup>
-    <Input placeholder="Name Your Identification" />
-    </InputGroup>
-    <br/>
-    <Dropdown isOpen={isOpen} toggle={this.toggle}>
-      <DropdownToggle caret>
-        Identification Type
-      </DropdownToggle>
-      <DropdownMenu right>
-        {identificationTypes.map(type => <DropdownItem value={type}>{type}</DropdownItem>)}
-      </DropdownMenu>
-    </Dropdown>
-    <br/>
-    <Button disabled={true}>Submit Identification</Button>
-  </CardBody>
+  const IdentityList = ({ entries }) =>
+    <Col xs="6">
+      <ListGroup>
+        <ListGroupItem>
+          <div className="float-left">Your IDs</div>
+        </ListGroupItem>
+        {
+          entries.length > 0 ?
+            entries.map(entry =>
+              <ListGroupItem>
+                <div className="float-left">{entry.name}</div>
+                {
+                  entry.certifications.some(cert => cert.state === '1') ?
+                  <button style={{ background: 'green' }} className="btn float-right">
+                    Approved
+                  </button>
+                  : ''
+                }
+              </ListGroupItem>
+            )
+            : <ListGroupItem>You currently do not have any identification entries</ListGroupItem>
+        }
+      </ListGroup>
+    </Col>
 
 const testEntries = [{
   name: 'Josh\'s TIN',
@@ -39,55 +46,38 @@ const testEntries = [{
   certified: true
 }]
 class DataAddPanel extends React.PureComponent {
-  state = { entries: [], selected: 'add' }
+
+    state = {
+      entries: [],
+      selected: 'add',
+      droppedFiles: [],
+      certifierAddress: undefined,
+      typeIdentifier: undefined,
+      idOptions: [
+        { value: 'license' },
+        { value: 'passport' },
+        { value: 'local id' }
+      ]
+    }
+
   componentDidMount() {
-    listDataEntries()
-      .then(entries => this.setState({ entries: testEntries }))
-      .then(console.log(this.state))
+    getSilo()
+      .then(() => listDataEntries())
+      .then(entries => Promise.all(entries.map(entry => getCertifications(entry.hash).then(certs => Object.assign(entry, { certs }))
+    )))
+      .then(entries => { this.setState({ entries }); console.log('some entries: ', entries) } )
   }
+
   render() {
-    const { entries, selected } = this.state
+    const { entries, selected, certifierAddress, typeIdentifier } = this.state
     return (
       <div style={{ background: '#79d286', minHeight: '1000px', padding: '30px' }}>
         <Container>
           <Row>
+            <IdentityList entries={entries} />
             <Col xs="6">
-              <ListGroup>
-                <ListGroupItem>
-                  <div className="float-left">Your IDs</div>
-                </ListGroupItem>
-                {
-                  entries.length > 0 ?
-                    entries.map(entry =>
-                      <ListGroupItem>
-                        <div className="float-left">{entry.name}</div>
-                        {
-                          entry.certified ?
-                          <button style={{ background: 'green' }} className="btn float-right">
-                            Approved
-                          </button>
-                          : ''
-                        }
-                      </ListGroupItem>
-                    )
-                    : <ListGroupItem>You currently do not have any identification entries</ListGroupItem>
-                }
-              </ListGroup>
+              <Upload />
             </Col>
-            <Col xs="6">
-            <Card>
-            {
-                selected === 'add' ?
-                <AddIdentification />
-                :
-                 <CardBody>
-                   <CardTitle>Card title</CardTitle>
-                   <CardText>This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</CardText>
-                   <Button>Button</Button>
-                 </CardBody>
-            }
-            </Card>
-           </Col>
          </Row>
         </Container>
       </div>
