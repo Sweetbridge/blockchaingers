@@ -23,13 +23,6 @@ export const getSilo = async (siloAddress) => {
       let receipt = await idSilo.deploy({data: IdSilo.bytecode}).send()
       idSilo.options.address = receipt.contractAddress
       storage.setItem('siloAddress', idSilo.options.address)
-      await idSilo.methods.addDataEntry('firstName', 'First Name', sha3('Abraham')).send()
-      await idSilo.methods.addDataEntry('lastName', 'Last Name', sha3('Rosenblum')).send()
-      let certAddress = '0x5AEDA56215b167893e80B4fE645BA6d5Bab767DE'
-      await idSilo.methods.requestCertification(certAddress, 'firstName').send()
-      await idSilo.methods.requestCertification(certAddress, 'lastName').send()
-      await idSilo.methods.certifyClaim('firstName', 1, (new Date()).getTime(), 9600).send({from: certAddress})
-      await idSilo.methods.certifyClaim('lastName', 1, (new Date()).getTime(), 9600).send({from: certAddress})
     }
   }
   return idSilo
