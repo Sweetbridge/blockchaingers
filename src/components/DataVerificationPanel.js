@@ -76,7 +76,7 @@ class DataVerificationPanel extends React.PureComponent {
   }
 
   submitData = async () => {
-    const encodedData = this.state.droppedFiles
+    const encodedData = this.state.droppedFiles || 'empty file'
     const hash = sha3(encodedData)
 
     let entries = await listDataEntries()
@@ -105,52 +105,55 @@ class DataVerificationPanel extends React.PureComponent {
 
     return (
       <div style={{background: '#79d286', minHeight: '1000px', padding: '30px'}}>
+
         <DragDropContextProvider backend={HTML5Backend}>
           <Container>
             <Row>
-              <Col xs="8">
-                <Form>
-                  <FormGroup>
-                    <Label for="exampleEmail">First Name</Label>
-                    <Input type="text" name="firstName" id="firstNameId"
-                           onChange={this.handleChangeFor('firstName')}
-                           placeholder="Please Type your first name"/>
-                  </FormGroup>
-                  <FormGroup>
-                    <Label for="exampleEmail">Last Name</Label>
-                    <Input type="text" name="lastName" id="lastNameId"
-                           onChange={this.handleChangeFor('lastName')}
-                           placeholder="Please Type your last name"/>
-                  </FormGroup>
-                  <FormGroup>
-                    <Label for="exampleEmail">Identification Location</Label>
-                    <Input type="text" name="idSilo" id="idSiloId"
-                           onChange={this.handleChangeFor('siloId')}
-                           value={this.state.siloId}
-                           placeholder="Please copy paste the address of your ID Silo contract"/>
-                  </FormGroup>
-                  <FormGroup>
-                    <div style={{padding: '20px'}}>
-                      <TargetBox accepts={[FILE]} onDrop={this.handleFileDrop}/>
-                      <FileList files={droppedFiles}/>
-                    </div>
-                    <Input type="text" name="fileName" id="fileNameId"
-                           onChange={this.handleChangeFor('fileName')}
-                           placeholder="Please Type the name you gave that ID"/>
-                  </FormGroup>
-                  <FormGroup>
-                    <Label for="exampleSelect">Identification</Label>
-                    <Input type="select" name="select" id="exampleSelect" multiple
-                           onChange={this.handleChangeFor('typeIdentifier')}>
-                      <option value='license'>license</option>
-                      <option value='passport'>passport</option>
-                      <option value='local-id'>local-id</option>
-                    </Input>
-                  </FormGroup>
-                  <Button onClick={this.submitData}>Submit for Verification</Button>
-                </Form>
+              <Col xs="8" className={'left-column'}>
+                <Card style={{padding: '20px'}}>
+                  <Form>
+                    <FormGroup>
+                      <Label for="exampleEmail">First Name</Label>
+                      <Input type="text" name="firstName" id="firstNameId"
+                             onChange={this.handleChangeFor('firstName')}
+                             placeholder="Please Type your first name"/>
+                    </FormGroup>
+                    <FormGroup>
+                      <Label for="exampleEmail">Last Name</Label>
+                      <Input type="text" name="lastName" id="lastNameId"
+                             onChange={this.handleChangeFor('lastName')}
+                             placeholder="Please Type your last name"/>
+                    </FormGroup>
+                    <FormGroup>
+                      <Label for="exampleEmail">Identification Location</Label>
+                      <Input type="text" name="idSilo" id="idSiloId"
+                             onChange={this.handleChangeFor('siloId')}
+                             value={this.state.siloId}
+                             placeholder="Please copy paste the address of your ID Silo contract"/>
+                    </FormGroup>
+                    <FormGroup>
+                      <div style={{padding: '20px'}}>
+                        <TargetBox accepts={[FILE]} onDrop={this.handleFileDrop}/>
+                        <FileList files={droppedFiles}/>
+                      </div>
+                      <Input type="text" name="fileName" id="fileNameId"
+                             onChange={this.handleChangeFor('fileName')}
+                             placeholder="Please Type the name you gave that ID"/>
+                    </FormGroup>
+                    <FormGroup>
+                      <Label for="exampleSelect">Identification</Label>
+                      <Input type="select" name="select" id="exampleSelect" multiple
+                             onChange={this.handleChangeFor('typeIdentifier')}>
+                        <option value='license'>license</option>
+                        <option value='passport'>passport</option>
+                        <option value='local-id'>local-id</option>
+                      </Input>
+                    </FormGroup>
+                    <Button onClick={this.submitData}>Submit for Verification</Button>
+                  </Form>
+                </Card>
               </Col>
-              <Col xs="4">
+              <Col xs="4" className={'left-column'}>
                 <Card style={this.state.displayResultSuccess}>
                   <CardImg top width="100%"
                            src="/approved.svg"
