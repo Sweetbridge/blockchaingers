@@ -34,7 +34,7 @@ contract Owned is OwnedEvents {
 
     function setOwner(address owner_) public onlyOwner {
         owner = owner_;
-        LogSetOwner(owner);
+        emit LogSetOwner(owner);
     }
 
 }

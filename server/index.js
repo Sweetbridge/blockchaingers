@@ -3,8 +3,6 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const { utils: { sha3 } } = require('web3')
 const app = express()
-const {web3, userAddress} = require('../src/utils/provider')
-const getSilo = require('../src/utils/idSilo')
 
 app.use(cors())
 app.use(bodyParser.json())
